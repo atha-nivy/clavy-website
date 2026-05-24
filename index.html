@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAVY — Money makes sense.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0F2A5F;
+  --blue: #1E5AF0;
+  --green: #10B981;
+  --rose: #FFB5A7;
+  --gold: #FFE08A;
+  --light: #F7F9FC;
+  --mid: #D9DEE7;
+  --dark: #1F2A37;
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(217,222,231,0.5);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.nav-wordmark {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--navy);
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--dark);
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+  font-weight: 400;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+.nav-cta {
+  background: var(--navy);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--blue);
+  transform: translateY(-1px);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,90,240,0.3) 0%, transparent 70%);
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+  bottom: -50px; left: -50px;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30,90,240,0.2);
+  border: 1px solid rgba(30,90,240,0.4);
+  border-radius: 50px;
+  padding: 6px 16px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-badge span {
+  font-size: 12px;
+  color: #7BA8FF;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-headline {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: white;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-headline em {
+  font-style: normal;
+  color: #7BA8FF;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s 0.2s ease both;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 4rem;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: white;
+  color: var(--navy);
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover { background: rgba(255,255,255,0.15); }
+
+.hero-stats {
+  display: flex;
+  gap: 1px;
+  border-radius: 20px;
+  overflow: hidden;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.hero-stat {
+  background: rgba(255,255,255,0.06);
+  padding: 16px 28px;
+  text-align: center;
+}
+
+.hero-stat:first-child { border-radius: 20px 0 0 20px; }
+.hero-stat:last-child { border-radius: 0 20px 20px 0; }
+
+.hero-stat-num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 2px;
+}
+
+.hero-stat-num.green { color: var(--green); }
+.hero-stat-num.gold { color: var(--gold); }
+.hero-stat-num.blue { color: #7BA8FF; }
+
+.hero-stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+
+/* FEATURES */
+.features {
+  padding: 6rem 2rem;
+  background: var(--light);
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--navy);
+  letter-spacing: -1px;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.section-sub {
+  font-size: 16px;
+  color: #6B7280;
+  max-width: 480px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.features-header {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--mid);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(15,42,95,0.08);
+}
+
+.feature-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem;
+  font-size: 22px;
+}
+
+.feature-icon.blue { background: #EEF3FE; }
+.feature-icon.green { background: #E6FAF4; }
+.feature-icon.gold { background: #FFF8DC; }
+
+.feature-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+/* HOW IT WORKS */
+.how {
+  padding: 6rem 2rem;
+  background: white;
+}
+
+.how-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.how-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.how-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.step-desc {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+.how-visual {
+  background: var(--navy);
+  border-radius: 28px;
+  padding: 2rem;
+}
+
+.mock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.mock-logo {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.mock-icon {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.mock-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.mock-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--rose);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  font-family: 'Poppins', sans-serif;
+}
+
+.mock-card {
+  background: rgba(30,90,240,0.2);
+  border: 1px solid rgba(30,90,240,0.3);
+  border-radius: 18px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.mock-balance-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+.mock-balance {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.mock-trend {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px;
+  color: var(--green);
+  font-family: 'Inter', sans-serif;
+}
+
+.mock-modules {
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.mock-module {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mock-module-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.mock-module-icon.b { background: rgba(30,90,240,0.25); }
+.mock-module-icon.g { background: rgba(16,185,129,0.2); }
+.mock-module-icon.y { background: rgba(255,224,138,0.15); }
+
+.mock-module-info { flex: 1; }
+
+.mock-module-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 2px;
+  font-family: 'Inter', sans-serif;
+}
+
+.mock-module-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Inter', sans-serif;
+}
+
+.mock-bar-bg {
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  margin-top: 6px;
+}
+
+.mock-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+/* SIGNUP */
+.signup {
+  padding: 6rem 2rem;
+  background: var(--light);
+}
+
+.signup-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.signup-card {
+  background: white;
+  border-radius: 28px;
+  padding: 3rem;
+  border: 1px solid var(--mid);
+  margin-top: 2.5rem;
+  box-shadow: 0 20px 80px rgba(15,42,95,0.08);
+}
+
+.signup-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--light);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 2rem;
+}
+
+.signup-tab {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+}
+
+.signup-tab.active {
+  background: white;
+  color: var(--navy);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 6px;
+  display: block;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--mid);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--dark);
+  background: white;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.form-input:focus { border-color: var(--blue); }
+.form-input::placeholder { color: #B0B8C4; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-submit {
+  width: 100%;
+  background: var(--navy);
+  color: white;
+  padding: 14px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-submit:hover {
+  background: var(--blue);
+  transform: translateY(-1px);
+}
+
+.form-disclaimer {
+  font-size: 11px;
+  color: #B0B8C4;
+  margin-top: 12px;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+}
+
+/* PARENTS */
+.parents {
+  padding: 6rem 2rem;
+  background: white;
+}
+
+.parents-inner { max-width: 1100px; margin: 0 auto; }
+
+.parents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 3rem;
+}
+
+.parent-card {
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--mid);
+}
+
+.parent-card.dark {
+  background: var(--navy);
+  border-color: transparent;
+}
+
+.parent-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.parent-card.dark .parent-card-title { color: white; }
+
+.parent-card-desc {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+.parent-card.dark .parent-card-desc { color: rgba(255,255,255,0.55); }
+.parent-card-icon { font-size: 28px; margin-bottom: 1rem; }
+
+/* FOOTER */
+footer {
+  background: var(--navy);
+  padding: 3rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+
+.footer-wordmark {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 2px;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-links a:hover { color: white; }
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  font-family: 'Inter', sans-serif;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+@media (max-width: 768px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .how-inner { grid-template-columns: 1fr; }
+  .parents-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero-stats { flex-direction: column; border-radius: 16px; }
+  .hero-stat { border-radius: 0 !important; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <circle cx="12" cy="28" r="4" fill="white" opacity="0.45"/>
+        <circle cx="20" cy="20" r="4" fill="white" opacity="0.72"/>
+        <circle cx="28" cy="12" r="4" fill="white"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">CLAVY</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Produkt</a></li>
+    <li><a href="#how">So funktioniert's</a></li>
+    <li><a href="#parents">Für Eltern</a></li>
+  </ul>
+  <a href="#signup" class="nav-cta">Jetzt registrieren</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <div class="hero-dot"></div>
+    <span>Jetzt in der Beta — kostenlos registrieren</span>
+  </div>
+  <h1 class="hero-headline">
+    Money makes sense.<br/><em>For every kid.</em>
+  </h1>
+  <p class="hero-sub">
+    Die Finanz-App für Kinder und Jugendliche zwischen 7 und 17. Lernen, Sparen und Bezahlen — alles an einem Ort.
+  </p>
+  <div class="hero-actions">
+    <a href="#signup" class="btn-primary">
+      <span>Kostenlos starten</span>
+      <span>→</span>
+    </a>
+    <a href="#how" class="btn-secondary">Mehr erfahren</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num green">7–17</div>
+      <div class="hero-stat-label">Altersgruppe</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num gold">3 in 1</div>
+      <div class="hero-stat-label">Learn · Pay · Save</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num blue">EU</div>
+      <div class="hero-stat-label">Reguliert &amp; sicher</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" style="color: var(--rose);">100%</div>
+      <div class="hero-stat-label">Eltern-Kontrolle</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header">
+    <div class="section-label">Was CLAVY kann</div>
+    <h2 class="section-title">Alles was Kinder brauchen,<br/>um mit Geld umzugehen.</h2>
+    <p class="section-sub">Kein Bankkonto-Dschungel. Keine überfordernden Begriffe. CLAVY macht Finanzen verständlich — von Anfang an.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon blue">📚</div>
+      <div class="feature-title">Clavy Learn</div>
+      <p class="feature-desc">Interaktive Lektionen zu Sparen, Ausgaben, Zinsen und Investieren — spielerisch aufgebaut, altersgerecht erklärt.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon green">💳</div>
+      <div class="feature-title">Clavy Pay</div>
+      <p class="feature-desc">Eine Jugendkarte die Eltern kontrollieren können. Online und offline bezahlen, mit klaren Limits und Echtzeit-Benachrichtigungen.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon gold">🎯</div>
+      <div class="feature-title">Clavy Goals</div>
+      <p class="feature-desc">Sparziele setzen und verfolgen. Ob Sneakers, Fahrrad oder Spielekonsole — Kinder lernen, für etwas zu sparen.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon blue">👨‍👩‍👧</div>
+      <div class="feature-title">Clavy Family</div>
+      <p class="feature-desc">Eltern behalten den Überblick. Taschengeld automatisch überweisen, Ausgaben einsehen, Limits setzen.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon green">⭐</div>
+      <div class="feature-title">Tägliche Aufgaben</div>
+      <p class="feature-desc">Kleine Finanzfragen, Quizze und Herausforderungen halten die Motivation hoch. Lernen fühlt sich wie ein Spiel an.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon gold">🔒</div>
+      <div class="feature-title">Sicher &amp; EU-reguliert</div>
+      <p class="feature-desc">Alle Daten bleiben in der EU. DSGVO-konform, keine Werbung, keine versteckten Kosten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div>
+      <div class="section-label">So einfach geht's</div>
+      <h2 class="section-title">In 3 Schritten<br/>loslegen.</h2>
+      <p class="section-sub" style="margin-bottom: 2.5rem;">Keine langen Formulare. Kein Gang zur Bank. CLAVY ist in wenigen Minuten eingerichtet.</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Elternteil registriert sich</div>
+            <p class="step-desc">Kurze Anmeldung mit E-Mail und Handynummer. Kein Personalausweis nötig für den Start.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Kind bekommt seinen Account</div>
+            <p class="step-desc">Eltern laden das Kind ein. Das Kind richtet seinen eigenen Bereich ein — altersgerecht und sicher.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Lernen, Sparen, Bezahlen</div>
+            <p class="step-desc">Sofort loslegen mit Lektionen, Sparzielen und der Clavy Card — alles unter einem Dach.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="how-visual">
+      <div class="mock-header">
+        <div class="mock-logo">
+          <div class="mock-icon">
+            <svg width="16" height="16" viewBox="0 0 40 40" fill="none">
+              <circle cx="12" cy="28" r="4" fill="white" opacity="0.5"/>
+              <circle cx="20" cy="20" r="4" fill="white" opacity="0.75"/>
+              <circle cx="28" cy="12" r="4" fill="white"/>
+            </svg>
+          </div>
+          <span class="mock-name">CLAVY</span>
+        </div>
+        <div class="mock-avatar">L</div>
+      </div>
+      <div class="mock-card">
+        <div class="mock-balance-label">Mein Guthaben</div>
+        <div class="mock-balance">€ 47,50</div>
+        <div class="mock-trend">↑ +€5 diese Woche</div>
+      </div>
+      <div class="mock-modules">
+        <div class="mock-module">
+          <div class="mock-module-icon b">📚</div>
+          <div class="mock-module-info">
+            <div class="mock-module-title">Clavy Learn</div>
+            <div class="mock-module-sub">Lektion 4 von 10</div>
+            <div class="mock-bar-bg"><div class="mock-bar-fill" style="width:40%; background:#1E5AF0;"></div></div>
+          </div>
+        </div>
+        <div class="mock-module">
+          <div class="mock-module-icon g">🎯</div>
+          <div class="mock-module-info">
+            <div class="mock-module-title">Clavy Goals</div>
+            <div class="mock-module-sub">Sneakers — €42 von €150</div>
+            <div class="mock-bar-bg"><div class="mock-bar-fill" style="width:28%; background:#10B981;"></div></div>
+          </div>
+        </div>
+        <div class="mock-module">
+          <div class="mock-module-icon y">⭐</div>
+          <div class="mock-module-info">
+            <div class="mock-module-title">Tagesaufgabe</div>
+            <div class="mock-module-sub">Was ist Zinseszins? +10 Punkte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="signup" id="signup">
+  <div class="signup-inner">
+    <div class="section-label" style="text-align:center;">Früher Zugang</div>
+    <h2 class="section-title" style="text-align:center;">Jetzt registrieren.<br/>Kostenlos starten.</h2>
+    <p class="section-sub" style="text-align:center; margin: 0 auto;">Sei dabei wenn CLAVY startet. Frühe Nutzer bekommen kostenlos Zugang zur Beta und exklusive Vorteile.</p>
+    <div class="signup-card">
+      <div class="signup-tabs">
+        <button class="signup-tab active" onclick="switchTab('eltern', event)">Ich bin Elternteil</button>
+        <button class="signup-tab" onclick="switchTab('kind', event)">Ich bin Jugendliche/r</button>
+      </div>
+      <div id="tab-eltern" class="tab-content active">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Vorname</label>
+            <input type="text" class="form-input" placeholder="Maria">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nachname</label>
+            <input type="text" class="form-input" placeholder="Müller">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-Mail-Adresse</label>
+          <input type="email" class="form-input" placeholder="maria@beispiel.de">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alter meines Kindes</label>
+          <select class="form-input">
+            <option value="" disabled selected>Bitte wählen</option>
+            <option>7–9 Jahre</option>
+            <option>10–12 Jahre</option>
+            <option>13–15 Jahre</option>
+            <option>16–17 Jahre</option>
+          </select>
+        </div>
+        <button class="btn-submit">Kostenlos zur Beta anmelden →</button>
+        <p class="form-disclaimer">Keine Kreditkarte nötig. Keine versteckten Kosten. DSGVO-konform.</p>
+      </div>
+      <div id="tab-kind" class="tab-content">
+        <div class="form-group">
+          <label class="form-label">Dein Vorname</label>
+          <input type="text" class="form-input" placeholder="Lena">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dein Alter</label>
+          <select class="form-input">
+            <option value="" disabled selected>Bitte wählen</option>
+            <option>7–9 Jahre</option>
+            <option>10–12 Jahre</option>
+            <option>13–15 Jahre</option>
+            <option>16–17 Jahre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-Mail deiner Eltern</label>
+          <input type="email" class="form-input" placeholder="eltern@beispiel.de">
+        </div>
+        <button class="btn-submit">Ich will dabei sein →</button>
+        <p class="form-disclaimer">Deine Eltern erhalten eine Einladungs-E-Mail zur Bestätigung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARENTS -->
+<section class="parents" id="parents">
+  <div class="parents-inner">
+    <div class="section-label">Für Eltern</div>
+    <h2 class="section-title">Vertrauen durch<br/>Transparenz.</h2>
+    <p class="section-sub">CLAVY ist so gebaut, dass Eltern immer den Überblick behalten — ohne Kontrollzwang.</p>
+    <div class="parents-grid">
+      <div class="parent-card dark">
+        <div class="parent-card-icon">🛡️</div>
+        <div class="parent-card-title">Volle Kontrolle</div>
+        <p class="parent-card-desc">Ausgabenlimits setzen, Zahlungen genehmigen, Transaktionen in Echtzeit einsehen.</p>
+      </div>
+      <div class="parent-card">
+        <div class="parent-card-icon">📊</div>
+        <div class="parent-card-title">Lernfortschritt sehen</div>
+        <p class="parent-card-desc">Welche Lektionen hat mein Kind abgeschlossen? CLAVY zeigt den Fortschritt in Echtzeit.</p>
+      </div>
+      <div class="parent-card">
+        <div class="parent-card-icon">💸</div>
+        <div class="parent-card-title">Taschengeld automatisieren</div>
+        <p class="parent-card-desc">Wöchentliches oder monatliches Taschengeld automatisch überweisen — pünktlich, ohne Ärger.</p>
+      </div>
+      <div class="parent-card dark">
+        <div class="parent-card-icon">🔒</div>
+        <div class="parent-card-title">Keine Werbung. Nie.</div>
+        <p class="parent-card-desc">CLAVY zeigt Ihrem Kind keine Werbung. Keine Tracking-Cookies. Keine Datenweitergabe. Punkt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="nav-icon" style="width:28px;height:28px;border-radius:8px;">
+        <svg width="16" height="16" viewBox="0 0 40 40" fill="none">
+          <circle cx="12" cy="28" r="4" fill="white" opacity="0.45"/>
+          <circle cx="20" cy="20" r="4" fill="white" opacity="0.72"/>
+          <circle cx="28" cy="12" r="4" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="footer-wordmark">CLAVY</div>
+        <div class="footer-tagline">Money makes sense.</div>
+      </div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">Datenschutz</a></li>
+      <li><a href="#">Impressum</a></li>
+      <li><a href="#">Kontakt</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 CLAVY UG (i.Gr.) · clavy.eu</div>
+  </div>
+</footer>
+
+<script>
+function switchTab(tab, event) {
+  document.querySelectorAll('.signup-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-card, .how-step, .parent-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
