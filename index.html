@@ -654,6 +654,30 @@ nav {
   font-family: 'Inter', sans-serif;
 }
 
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 1rem;
+  text-align: left;
+}
+.form-consent input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--navy);
+  cursor: pointer;
+}
+.form-consent label {
+  font-size: 12px;
+  color: #6B7280;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+}
+.form-consent a { color: var(--blue); text-decoration: underline; }
+
 /* PARENTS */
 .parents {
   padding: 6rem 2rem;
@@ -989,6 +1013,12 @@ footer {
             <option>16–17 Jahre</option>
           </select>
         </div>
+        <div class="form-consent">
+          <input type="checkbox" id="consent-parent" required>
+          <label for="consent-parent">
+            Ich stimme zu, dass CLAVY meine E-Mail-Adresse speichert, um mich zur Beta einzuladen. Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen. Einwilligung jederzeit widerrufbar per E-Mail an hallo@clavy.eu.
+          </label>
+        </div>
         <button class="btn-submit">Kostenlos zur Beta anmelden →</button>
         <p class="form-disclaimer">Keine Kreditkarte nötig. Keine versteckten Kosten. DSGVO-konform.</p>
       </div>
@@ -1010,6 +1040,12 @@ footer {
         <div class="form-group">
           <label class="form-label">E-Mail deiner Eltern</label>
           <input type="email" class="form-input" placeholder="eltern@beispiel.de">
+        </div>
+        <div class="form-consent">
+          <input type="checkbox" id="consent-child" required>
+          <label for="consent-child">
+            Meine Eltern sind damit einverstanden, dass CLAVY ihre E-Mail-Adresse speichert, um uns zur Beta einzuladen. Sie haben die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.
+          </label>
         </div>
         <button class="btn-submit">Ich will dabei sein →</button>
         <p class="form-disclaimer">Deine Eltern erhalten eine Einladungs-E-Mail zur Bestätigung.</p>
@@ -1066,9 +1102,9 @@ footer {
       </div>
     </div>
     <ul class="footer-links">
-      <li><a href="#">Datenschutz</a></li>
-      <li><a href="#">Impressum</a></li>
-      <li><a href="#">Kontakt</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="mailto:hallo@clavy.eu">Kontakt</a></li>
     </ul>
     <div class="footer-copy">© 2025 CLAVY UG (i.Gr.) · clavy.eu</div>
   </div>
