@@ -10,15 +10,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy: #0F2A5F;
-  --blue: #1E5AF0;
-  --green: #10B981;
-  --rose: #FFB5A7;
-  --gold: #FFE08A;
-  --light: #F7F9FC;
-  --mid: #D9DEE7;
-  --dark: #1F2A37;
-  --white: #ffffff;
+  /* === CLAVY Design Tokens (sync mit src/theme/colors.ts) === */
+  --navy: #0F2A5F;       /* primary1Navy */
+  --blue: #1E5AF0;       /* primary1 */
+  --green: #10B981;      /* primary2 */
+  --rose: #FFB5A7;       /* accent1 */
+  --gold: #FFE08A;       /* accent2 */
+  --light: #F7F9FC;      /* neutralLight */
+  --mid: #D9DEE7;        /* neutralMid */
+  --dark: #1F2A37;       /* neutralDark */
+  --white: #ffffff;      /* primaryContrast */
+  --blue-light: var(--blue-light); /* blue tinted — für helle Texte auf Navy-Hintergrund */
 }
 
 html { scroll-behavior: smooth; }
@@ -147,7 +149,7 @@ nav {
 
 .hero-badge span {
   font-size: 12px;
-  color: #7BA8FF;
+  color: var(--blue-light);
   font-weight: 500;
   font-family: 'Inter', sans-serif;
 }
@@ -178,7 +180,7 @@ nav {
 
 .hero-headline em {
   font-style: normal;
-  color: #7BA8FF;
+  color: var(--blue-light);
 }
 
 .hero-sub {
@@ -261,7 +263,7 @@ nav {
 
 .hero-stat-num.green { color: var(--green); }
 .hero-stat-num.gold { color: var(--gold); }
-.hero-stat-num.blue { color: #7BA8FF; }
+.hero-stat-num.blue { color: var(--blue-light); }
 
 .hero-stat-label {
   font-size: 11px;
@@ -924,7 +926,7 @@ footer {
           <div class="mock-module-info">
             <div class="mock-module-title">Clavy Learn</div>
             <div class="mock-module-sub">Lektion 4 von 10</div>
-            <div class="mock-bar-bg"><div class="mock-bar-fill" style="width:40%; background:#1E5AF0;"></div></div>
+            <div class="mock-bar-bg"><div class="mock-bar-fill" style="width:40%; background:var(--blue);"></div></div>
           </div>
         </div>
         <div class="mock-module">
@@ -932,7 +934,7 @@ footer {
           <div class="mock-module-info">
             <div class="mock-module-title">Clavy Goals</div>
             <div class="mock-module-sub">Sneakers — €42 von €150</div>
-            <div class="mock-bar-bg"><div class="mock-bar-fill" style="width:28%; background:#10B981;"></div></div>
+            <div class="mock-bar-bg"><div class="mock-bar-fill" style="width:28%; background:var(--green);"></div></div>
           </div>
         </div>
         <div class="mock-module">
