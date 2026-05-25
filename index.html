@@ -20,7 +20,7 @@
   --mid: #D9DEE7;        /* neutralMid */
   --dark: #1F2A37;       /* neutralDark */
   --white: #ffffff;      /* primaryContrast */
-  --blue-light: var(--blue-light); /* blue tinted — für helle Texte auf Navy-Hintergrund */
+  --blue-light: #7BA8FF; /* blue tinted — für helle Texte auf Navy-Hintergrund */
 }
 
 html { scroll-behavior: smooth; }
@@ -102,15 +102,15 @@ nav {
   transform: translateY(-1px);
 }
 
-/* HERO */
+/* HERO — light-first, wie die App */
 .hero {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8rem 2rem 4rem;
-  background: var(--navy);
+  padding: 8rem 2rem 5rem;
+  background: var(--light);
   position: relative;
   overflow: hidden;
 }
@@ -118,20 +118,20 @@ nav {
 .hero::before {
   content: '';
   position: absolute;
-  width: 600px; height: 600px;
+  width: 700px; height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(30,90,240,0.3) 0%, transparent 70%);
-  top: -100px; right: -100px;
+  background: radial-gradient(circle, rgba(30,90,240,0.07) 0%, transparent 65%);
+  top: -150px; right: -150px;
   pointer-events: none;
 }
 
 .hero::after {
   content: '';
   position: absolute;
-  width: 400px; height: 400px;
+  width: 500px; height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
-  bottom: -50px; left: -50px;
+  background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 65%);
+  bottom: -100px; left: -100px;
   pointer-events: none;
 }
 
@@ -139,8 +139,8 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(30,90,240,0.2);
-  border: 1px solid rgba(30,90,240,0.4);
+  background: rgba(30,90,240,0.08);
+  border: 1px solid rgba(30,90,240,0.18);
   border-radius: 50px;
   padding: 6px 16px;
   margin-bottom: 2rem;
@@ -149,7 +149,7 @@ nav {
 
 .hero-badge span {
   font-size: 12px;
-  color: var(--blue-light);
+  color: var(--blue);
   font-weight: 500;
   font-family: 'Inter', sans-serif;
 }
@@ -157,7 +157,7 @@ nav {
 .hero-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #10B981;
+  background: var(--green);
   animation: pulse 2s infinite;
 }
 
@@ -170,7 +170,7 @@ nav {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-size: clamp(2.5rem, 6vw, 5rem);
-  color: white;
+  color: var(--navy);
   text-align: center;
   line-height: 1.1;
   letter-spacing: -2px;
@@ -180,18 +180,18 @@ nav {
 
 .hero-headline em {
   font-style: normal;
-  color: var(--blue-light);
+  color: var(--blue);
 }
 
 .hero-sub {
   font-size: 18px;
-  color: rgba(255,255,255,0.55);
+  color: #6B7280;
   text-align: center;
   max-width: 500px;
   line-height: 1.6;
   margin-bottom: 2.5rem;
   animation: fadeUp 0.6s 0.2s ease both;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .hero-actions {
@@ -204,70 +204,74 @@ nav {
 }
 
 .btn-primary {
-  background: white;
-  color: var(--navy);
+  background: var(--navy);
+  color: white;
   padding: 14px 28px;
   border-radius: 50px;
   font-size: 15px;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
   display: flex; align-items: center; gap: 8px;
 }
 
 .btn-primary:hover {
+  background: var(--blue);
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 40px rgba(15,42,95,0.2);
 }
 
 .btn-secondary {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: white;
+  background: white;
+  border: 1.5px solid var(--mid);
+  color: var(--navy);
   padding: 14px 28px;
   border-radius: 50px;
   font-size: 15px;
   font-weight: 500;
   font-family: 'Inter', sans-serif;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
-.btn-secondary:hover { background: rgba(255,255,255,0.15); }
+.btn-secondary:hover {
+  border-color: var(--navy);
+  background: var(--light);
+}
 
 .hero-stats {
   display: flex;
-  gap: 1px;
-  border-radius: 20px;
-  overflow: hidden;
+  gap: 8px;
   animation: fadeUp 0.6s 0.4s ease both;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .hero-stat {
-  background: rgba(255,255,255,0.06);
-  padding: 16px 28px;
+  background: white;
+  border: 1px solid var(--mid);
+  border-radius: 16px;
+  padding: 14px 24px;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(15,42,95,0.05);
 }
-
-.hero-stat:first-child { border-radius: 20px 0 0 20px; }
-.hero-stat:last-child { border-radius: 0 20px 20px 0; }
 
 .hero-stat-num {
   font-family: 'Poppins', sans-serif;
   font-size: 22px;
   font-weight: 800;
-  color: white;
+  color: var(--navy);
   margin-bottom: 2px;
 }
 
 .hero-stat-num.green { color: var(--green); }
-.hero-stat-num.gold { color: var(--gold); }
-.hero-stat-num.blue { color: var(--blue-light); }
+.hero-stat-num.gold { color: #D97706; }
+.hero-stat-num.blue { color: var(--blue); }
 
 .hero-stat-label {
   font-size: 11px;
-  color: rgba(255,255,255,0.4);
+  color: #9CA3AF;
   white-space: nowrap;
   font-family: 'Inter', sans-serif;
 }
@@ -823,7 +827,7 @@ footer {
       <div class="hero-stat-label">Reguliert &amp; sicher</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num" style="color: var(--rose);">100%</div>
+      <div class="hero-stat-num" style="color: var(--blue);">100%</div>
       <div class="hero-stat-label">Eltern-Kontrolle</div>
     </div>
   </div>
