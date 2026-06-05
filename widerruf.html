@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAVY — Widerrufsbelehrung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0F2A5F;
+  --blue: #1E5AF0;
+  --green: #10B981;
+  --light: #F7F9FC;
+  --mid: #D9DEE7;
+  --dark: #1F2A37;
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); min-height: 100vh; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(217,222,231,0.5);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; }
+.nav-wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: 1px; }
+.nav-back { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.65; transition: opacity 0.2s; }
+.nav-back:hover { opacity: 1; }
+
+main { padding: 7rem 1.5rem 5rem; max-width: 720px; margin: 0 auto; }
+
+.doc-header { margin-bottom: 3rem; }
+.doc-label { font-size: 12px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; }
+.doc-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+.doc-meta { font-size: 13px; color: #6B7280; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+.placeholder-banner {
+  background: #FEF3C7;
+  border: 1.5px solid #D97706;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2.5rem;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.placeholder-banner-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.placeholder-banner p { font-size: 13px; color: #92400E; line-height: 1.6; }
+.placeholder-banner strong { color: #78350F; }
+
+/* Die eigentliche Widerrufsbelehrung — als "dauerhafter Datenträger" (§355 BGB) */
+.widerruf-card {
+  background: white;
+  border: 2px solid var(--navy);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+.widerruf-card-badge {
+  position: absolute;
+  top: -12px; left: 24px;
+  background: var(--navy);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.widerruf-card h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--mid);
+}
+.widerruf-card h3 {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--dark);
+  margin: 1.5rem 0 0.5rem;
+}
+.widerruf-card p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+.widerruf-card ul {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.widerruf-card li {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+.widerruf-card a { color: var(--blue); }
+
+.info-box {
+  background: rgba(30,90,240,0.05);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.info-box p { font-size: 14px; line-height: 1.65; color: #374151; margin-bottom: 0; }
+
+/* Muster-Widerrufsformular */
+.formular-card {
+  background: white;
+  border: 1.5px solid var(--mid);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+.formular-card h2 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--navy); margin-bottom: 1rem; }
+.formular-card p, .formular-card li { font-size: 14px; line-height: 1.75; color: #374151; margin-bottom: 0.5rem; }
+.formular-card .formular-text {
+  background: var(--light);
+  border: 1px dashed var(--mid);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-line;
+  color: #374151;
+}
+.formular-text em { color: var(--blue); font-style: normal; font-weight: 600; }
+
+.waiver-section {
+  background: #F0FDF4;
+  border: 1.5px solid #10B981;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.waiver-section h2 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; color: #065F46; margin-bottom: 0.75rem; }
+.waiver-section p { font-size: 14px; line-height: 1.7; color: #064E3B; }
+
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2rem;
+  text-align: center;
+}
+footer a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 0.75rem; font-size: 13px; }
+footer a:hover { color: white; }
+footer p { font-size: 12px; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" opacity="0.9"/>
+        <path d="M2 17L12 22L22 17" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M2 12L12 17L22 12" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">CLAVY</span>
+  </a>
+  <a href="index.html" class="nav-back">← Zurück zur Startseite</a>
+</nav>
+
+<main>
+  <div class="doc-header">
+    <div class="doc-label">Rechtliches — §§ 355, 356 BGB</div>
+    <h1 class="doc-title">Widerrufsbelehrung</h1>
+    <div class="doc-meta">
+      <span>📄 CLAVY GmbH</span>
+      <span>🗓️ Stand: [DATUM EINSETZEN]</span>
+    </div>
+  </div>
+
+  <div class="placeholder-banner">
+    <div class="placeholder-banner-icon">⚠️</div>
+    <p>
+      <strong>Platzhalter — anwaltliche Prüfung ausstehend.</strong>
+      Dieser Entwurf basiert auf der gesetzlichen Musterwiderrufsbelehrung (Anlage 1 zu Art. 246a § 1 Abs. 2 Satz 2 EGBGB).
+      Vor dem Launch durch einen auf IT-Recht spezialisierten Anwalt prüfen und anpassen lassen.
+    </p>
+  </div>
+
+  <!-- DIE EIGENTLICHE WIDERRUFSBELEHRUNG -->
+  <div class="widerruf-card">
+    <div class="widerruf-card-badge">§ 355 BGB — Dauerhafter Datenträger</div>
+    <h2>Widerrufsbelehrung</h2>
+
+    <h3>Widerrufsrecht</h3>
+    <p>
+      Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
+    </p>
+    <p>
+      Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
+    </p>
+    <p>
+      Um Ihr Widerrufsrecht auszuüben, müssen Sie uns
+    </p>
+    <div class="info-box">
+      <p>
+        <strong>[FIRMENNAME] GmbH</strong><br>
+        [Straße, Hausnummer], [PLZ Ort]<br>
+        E-Mail: hallo@clavy.eu
+      </p>
+    </div>
+    <p>
+      mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.
+    </p>
+    <p>
+      Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
+    </p>
+
+    <h3>Folgen des Widerrufs</h3>
+    <p>
+      Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.
+    </p>
+
+    <h3>Vorzeitiger Beginn und anteilige Vergütung</h3>
+    <p>
+      Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht.
+    </p>
+
+    <h3>Erlöschen des Widerrufsrechts bei digitalen Inhalten</h3>
+    <p>
+      Das Widerrufsrecht erlischt bei einem Vertrag zur Erbringung von Dienstleistungen vorzeitig, wenn CLAVY die Dienstleistung vollständig erbracht hat und mit der Ausführung der Dienstleistung erst begonnen hat, nachdem Sie dazu Ihre ausdrückliche Zustimmung gegeben und gleichzeitig Ihre Kenntnis davon bestätigt haben, dass Sie Ihr Widerrufsrecht verlieren, sobald wir den Vertrag vollständig erfüllt haben.
+    </p>
+  </div>
+
+  <!-- MUSTER-WIDERRUFSFORMULAR -->
+  <div class="formular-card">
+    <h2>Muster-Widerrufsformular</h2>
+    <p>
+      (Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)
+    </p>
+    <div class="formular-text">An:
+<em>[FIRMENNAME] GmbH</em>
+<em>[Straße, Hausnummer]</em>
+<em>[PLZ Ort]</em>
+E-Mail: hallo@clavy.eu
+
+Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über
+den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*)
+
+Bestellt am (*)/erhalten am (*)
+______________________________________________
+
+Name des/der Verbraucher(s)
+______________________________________________
+
+Anschrift des/der Verbraucher(s)
+______________________________________________
+
+Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)
+______________________________________________
+
+Datum: ______________________________________________
+
+(*) Unzutreffendes streichen</div>
+  </div>
+
+  <!-- WAIVER-ERKLÄRUNG (§356 Abs. 5 BGB) -->
+  <div class="waiver-section">
+    <h2>✅ Freiwilliger Verzicht auf das Widerrufsrecht (§ 356 Abs. 5 BGB)</h2>
+    <p>
+      Wenn Sie CLAVY sofort nach der Registrierung — also noch innerhalb der 14-tägigen Widerrufsfrist — vollständig nutzen möchten (Lernmissionen starten, Kindprofil anlegen, alle Funktionen freischalten), können Sie im Registrierungsformular ausdrücklich bestätigen, dass Sie auf Ihr Widerrufsrecht für bereits vollständig erbrachte digitale Leistungen verzichten.
+    </p>
+    <p style="margin-top: 0.75rem;">
+      Dieser Verzicht ist <strong>freiwillig</strong> und <strong>optional</strong>. Ohne diesen Verzicht können Sie CLAVY auch nutzen — allerdings verlieren Sie das Widerrufsrecht anteilig für bereits genutzte Funktionen.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <a href="agb.html">AGB</a>
+  <a href="datenschutz.html">Datenschutz</a>
+  <a href="widerruf.html">Widerrufsbelehrung</a>
+  <a href="impressum.html">Impressum</a>
+  <a href="index.html">Startseite</a>
+  <p>© 2026 CLAVY — hallo@clavy.eu</p>
+</footer>
+
+</body>
+</html>

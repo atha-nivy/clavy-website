@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAVY — Jetzt starten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0F2A5F;
+  --blue: #1E5AF0;
+  --green: #10B981;
+  --rose: #FFB5A7;
+  --gold: #FFE08A;
+  --light: #F7F9FC;
+  --mid: #D9DEE7;
+  --dark: #1F2A37;
+  --white: #ffffff;
+  --red: #DC2626;
+  --amber: #D97706;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); min-height: 100vh; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(217,222,231,0.5);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; }
+.nav-wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: 1px; }
+.nav-back { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+.nav-back:hover { opacity: 1; }
+
+/* MAIN LAYOUT */
+main { padding: 6rem 1.5rem 4rem; max-width: 600px; margin: 0 auto; }
+
+/* PROGRESS */
+.progress-bar { display: flex; align-items: center; gap: 0; margin-bottom: 2.5rem; }
+.progress-step {
+  display: flex; align-items: center; gap: 8px; flex: 1;
+  padding: 10px 0; border-bottom: 3px solid var(--mid); transition: border-color 0.3s;
+}
+.progress-step.active { border-color: var(--navy); }
+.progress-step.done { border-color: var(--green); }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--mid);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: #9CA3AF; transition: all 0.3s;
+}
+.progress-step.active .step-num { border-color: var(--navy); background: var(--navy); color: white; }
+.progress-step.done .step-num { border-color: var(--green); background: var(--green); color: white; }
+.step-label { font-size: 12px; color: #9CA3AF; font-weight: 500; }
+.progress-step.active .step-label { color: var(--navy); }
+.progress-step.done .step-label { color: var(--green); }
+
+/* CARDS */
+.card { background: var(--white); border-radius: 20px; padding: 2rem; box-shadow: 0 4px 24px rgba(15,42,95,0.08); margin-bottom: 1.5rem; }
+
+/* PLAN CARDS */
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+@media (max-width: 480px) { .plan-grid { grid-template-columns: 1fr; } }
+.plan-card {
+  border: 2px solid var(--mid); border-radius: 16px; padding: 1.25rem; cursor: pointer;
+  transition: all 0.2s; position: relative; background: var(--white);
+}
+.plan-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(30,90,240,0.12); }
+.plan-card.selected { border-color: var(--navy); background: rgba(15,42,95,0.03); }
+.plan-badge {
+  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+  background: var(--green); color: white; font-size: 11px; font-weight: 700;
+  padding: 2px 12px; border-radius: 20px; white-space: nowrap;
+}
+.plan-name { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+.plan-price { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 26px; color: var(--dark); }
+.plan-price span { font-size: 14px; font-weight: 400; color: #6B7280; }
+.plan-per { font-size: 12px; color: #6B7280; margin-bottom: 8px; }
+.plan-trial { font-size: 12px; color: var(--green); font-weight: 600; }
+.plan-savings { font-size: 11px; color: var(--amber); font-weight: 600; margin-top: 2px; }
+
+/* FORM */
+.form-group { margin-bottom: 1.25rem; }
+label { display: block; font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+label .required { color: var(--red); margin-left: 2px; }
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+  width: 100%; padding: 12px 16px; border: 1.5px solid var(--mid);
+  border-radius: 10px; font-size: 15px; font-family: 'Inter', sans-serif;
+  color: var(--dark); background: var(--white); transition: border-color 0.2s;
+  outline: none; -webkit-appearance: none; appearance: none;
+}
+input:focus, select:focus { border-color: var(--blue); }
+input.error, select.error { border-color: var(--red); }
+.field-error { font-size: 12px; color: var(--red); margin-top: 4px; display: none; }
+.field-error.visible { display: block; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+/* CHECKBOX */
+.check-group { margin-bottom: 1rem; }
+.check-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+.check-box {
+  width: 20px; height: 20px; min-width: 20px; border: 2px solid var(--mid);
+  border-radius: 5px; margin-top: 2px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; background: var(--white);
+}
+.check-label input[type="checkbox"] { display: none; }
+.check-label input:checked + .check-box { background: var(--navy); border-color: var(--navy); }
+.check-label input:checked + .check-box::after { content: '✓'; color: white; font-size: 12px; font-weight: 700; }
+.check-text { font-size: 13px; color: var(--dark); line-height: 1.5; }
+.check-text a { color: var(--blue); text-decoration: underline; }
+.check-group.required-check .check-box { border-color: var(--red); }
+.check-group.required-check.filled .check-box { border-color: var(--navy); }
+
+/* WAIVER CARD */
+.waiver-card {
+  background: #FEF3C7; border: 1.5px solid #FCD34D; border-radius: 12px;
+  padding: 1rem; margin-bottom: 1.25rem;
+}
+.waiver-title { font-size: 13px; font-weight: 700; color: #92400E; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.waiver-text { font-size: 12px; color: #78350F; line-height: 1.6; margin-bottom: 10px; }
+
+/* MOCK PAYMENT */
+.payment-note { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 10px; padding: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px; }
+.payment-note p { font-size: 13px; color: #166534; }
+.mock-badge { font-size: 11px; background: #D1FAE5; color: #065F46; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+
+/* BUTTONS */
+.btn-primary {
+  width: 100%; background: var(--navy); color: white; border: none;
+  padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700;
+  font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.2s;
+}
+.btn-primary:hover:not(:disabled) { background: var(--blue); transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-back { background: none; border: 1.5px solid var(--mid); color: var(--dark); padding: 12px; border-radius: 12px; font-size: 14px; cursor: pointer; font-family: 'Inter', sans-serif; width: 100%; margin-top: 10px; transition: border-color 0.2s; }
+.btn-back:hover { border-color: var(--navy); }
+
+/* SECURITY BADGES */
+.security { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+.security-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #6B7280; }
+
+/* SUCCESS */
+.success-card { text-align: center; padding: 2.5rem 2rem; }
+.success-icon { font-size: 64px; margin-bottom: 1.5rem; }
+.success-title { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.success-sub { font-size: 16px; color: #374151; line-height: 1.6; margin-bottom: 2rem; }
+.download-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+@media (max-width: 400px) { .download-grid { grid-template-columns: 1fr; } }
+.download-btn {
+  display: block; padding: 14px; border-radius: 12px; text-decoration: none; text-align: center;
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; transition: all 0.2s;
+}
+.download-ios { background: var(--dark); color: white; }
+.download-ios:hover { background: #374151; transform: translateY(-2px); }
+.download-android { background: #16A34A; color: white; }
+.download-android:hover { background: #15803D; transform: translateY(-2px); }
+.magic-link-btn {
+  display: block; width: 100%; background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: white; padding: 16px; border-radius: 12px; text-align: center;
+  font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700;
+  text-decoration: none; margin-bottom: 12px; transition: opacity 0.2s;
+}
+.magic-link-btn:hover { opacity: 0.9; }
+.email-note { font-size: 13px; color: #6B7280; line-height: 1.5; }
+
+/* WIDERRUFS TOGGLE */
+.widerrufs-toggle { margin-bottom: 1rem; }
+.widerrufs-btn {
+  background: none; border: 1px solid var(--mid); padding: 10px 16px; border-radius: 8px;
+  font-size: 13px; cursor: pointer; color: var(--dark); display: flex; align-items: center; gap: 8px;
+  font-family: 'Inter', sans-serif; width: 100%; text-align: left;
+}
+.widerrufs-content {
+  display: none; background: #F9FAFB; border: 1px solid var(--mid);
+  border-top: none; border-radius: 0 0 8px 8px; padding: 1rem; font-size: 12px; line-height: 1.7; color: #374151;
+}
+.widerrufs-content.open { display: block; }
+
+/* ERROR BANNER */
+.error-banner {
+  background: #FEF2F2; border: 1px solid #FECACA; border-radius: 10px;
+  padding: 12px 16px; margin-bottom: 1rem; display: none; font-size: 14px; color: var(--red);
+}
+.error-banner.visible { display: block; }
+
+/* LOADING */
+.spinner {
+  width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%; display: inline-block;
+  animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* FOOTER */
+footer { text-align: center; padding: 2rem; font-size: 12px; color: #9CA3AF; }
+footer a { color: var(--blue); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <circle cx="12" cy="28" r="4" fill="white" opacity="0.45"/>
+        <circle cx="20" cy="20" r="4" fill="white" opacity="0.72"/>
+        <circle cx="28" cy="12" r="4" fill="white"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">CLAVY</span>
+  </a>
+  <a href="index.html" class="nav-back">← Zurück</a>
+</nav>
+
+<main>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progressBar">
+    <div class="progress-step active" data-step="1">
+      <div class="step-num">1</div>
+      <div class="step-label">Plan</div>
+    </div>
+    <div class="progress-step" data-step="2">
+      <div class="step-num">2</div>
+      <div class="step-label">Konto</div>
+    </div>
+    <div class="progress-step" data-step="3">
+      <div class="step-num">3</div>
+      <div class="step-label">Details</div>
+    </div>
+    <div class="progress-step" data-step="4">
+      <div class="step-num">4</div>
+      <div class="step-label">Fertig</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: PLAN -->
+  <div id="step1" class="step-content">
+    <div class="card">
+      <h1 style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;">Deinen Plan wählen</h1>
+      <p style="font-size:14px;color:#6B7280;margin-bottom:1.5rem;">7 Tage kostenlos testen — keine Kreditkarte nötig bis Tag 7</p>
+
+      <div class="plan-grid">
+        <div class="plan-card" id="planMonatlich" onclick="selectPlan('monthly', 249, this)">
+          <div class="plan-name">Monatlich</div>
+          <div class="plan-price">€2,49<span>/Mo</span></div>
+          <div class="plan-per">monatlich kündbar</div>
+          <div class="plan-trial">✓ 7 Tage gratis</div>
+        </div>
+        <div class="plan-card selected" id="planJaehrlich" onclick="selectPlan('annual', 1999, this)">
+          <div class="plan-badge">Empfohlen</div>
+          <div class="plan-name">Jährlich</div>
+          <div class="plan-price">€19,99<span>/Jahr</span></div>
+          <div class="plan-per">€1,67 pro Monat</div>
+          <div class="plan-trial">✓ 7 Tage gratis</div>
+          <div class="plan-savings">33% Ersparnis</div>
+        </div>
+      </div>
+
+      <div style="background:var(--light);border-radius:12px;padding:1rem;margin-bottom:1.5rem;">
+        <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px;">Alles inklusive:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div style="font-size:13px;color:#374151;">✓ Alle Lernmissionen</div>
+          <div style="font-size:13px;color:#374151;">✓ Aufgaben & Coins</div>
+          <div style="font-size:13px;color:#374151;">✓ Sparziele</div>
+          <div style="font-size:13px;color:#374151;">✓ Keine Werbung</div>
+          <div style="font-size:13px;color:#374151;">✓ iOS & Android</div>
+          <div style="font-size:13px;color:#374151;">✓ Jederzeit kündbar</div>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="goToStep(2)">Weiter →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: KONTO -->
+  <div id="step2" class="step-content" style="display:none;">
+    <div class="card">
+      <h2 style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;">Konto erstellen</h2>
+      <p style="font-size:14px;color:#6B7280;margin-bottom:1.5rem;">Nur wenige Felder — wir brauchen nicht mehr.</p>
+
+      <div id="step2Error" class="error-banner"></div>
+
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse<span class="required">*</span></label>
+        <input type="email" id="email" placeholder="deine@email.de" autocomplete="email">
+        <div class="field-error" id="emailError">Bitte gib eine gültige E-Mail-Adresse ein.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Passwort<span class="required">*</span></label>
+        <input type="password" id="password" placeholder="Mindestens 8 Zeichen" autocomplete="new-password">
+        <div class="field-error" id="passwordError">Mindestens 8 Zeichen, davon 1 Buchstabe und 1 Zahl.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="passwordConfirm">Passwort bestätigen<span class="required">*</span></label>
+        <input type="password" id="passwordConfirm" placeholder="Passwort wiederholen" autocomplete="new-password">
+        <div class="field-error" id="passwordConfirmError">Die Passwörter stimmen nicht überein.</div>
+      </div>
+
+      <div class="check-group" id="checkAge">
+        <label class="check-label">
+          <input type="checkbox" id="ageCheck">
+          <div class="check-box"></div>
+          <span class="check-text">Ich bin mindestens 18 Jahre alt.<span class="required">*</span></span>
+        </label>
+      </div>
+
+      <div class="check-group" id="checkAGB">
+        <label class="check-label">
+          <input type="checkbox" id="agbCheck">
+          <div class="check-box"></div>
+          <span class="check-text">Ich akzeptiere die <a href="agb.html" target="_blank">Allgemeinen Geschäftsbedingungen</a>.<span class="required">*</span></span>
+        </label>
+      </div>
+
+      <div class="check-group" id="checkDSGVO">
+        <label class="check-label">
+          <input type="checkbox" id="dsgvoCheck">
+          <div class="check-box"></div>
+          <span class="check-text">Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie.<span class="required">*</span></span>
+        </label>
+      </div>
+
+      <button class="btn-primary" onclick="validateStep2()">Weiter →</button>
+      <button class="btn-back" onclick="goToStep(1)">← Zurück</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: DETAILS + ZAHLUNG -->
+  <div id="step3" class="step-content" style="display:none;">
+    <div class="card">
+      <h2 style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;">Persönliche Daten</h2>
+      <p style="font-size:14px;color:#6B7280;margin-bottom:1.5rem;">Für Rechnung und Vertragsunterlagen.</p>
+
+      <div id="step3Error" class="error-banner"></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Vorname<span class="required">*</span></label>
+          <input type="text" id="firstName" placeholder="Anna" autocomplete="given-name">
+          <div class="field-error" id="firstNameError">Bitte gib deinen Vornamen ein.</div>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nachname<span class="required">*</span></label>
+          <input type="text" id="lastName" placeholder="Müller" autocomplete="family-name">
+          <div class="field-error" id="lastNameError">Bitte gib deinen Nachnamen ein.</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="birthYear">Geburtsjahr <span style="color:#9CA3AF;font-weight:400;">(optional)</span></label>
+          <input type="number" id="birthYear" placeholder="1985" min="1920" max="2007" autocomplete="bday-year">
+        </div>
+        <div class="form-group">
+          <label for="country">Land<span class="required">*</span></label>
+          <select id="country" autocomplete="country">
+            <option value="DE" selected>🇩🇪 Deutschland</option>
+            <option value="AT">🇦🇹 Österreich</option>
+            <option value="CH">🇨🇭 Schweiz</option>
+            <option value="GR">🇬🇷 Griechenland</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Zahlung -->
+      <div style="border-top:1.5px solid var(--mid);margin:1.5rem 0;"></div>
+      <h3 style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;color:var(--navy);margin-bottom:10px;">Zahlungsdetails</h3>
+
+      <div class="payment-note">
+        <div class="mock-badge">TEST</div>
+        <p>Testphase aktiv — keine Zahlung bis <span id="trialEndDate" style="font-weight:600;">—</span>. Du kannst jederzeit kündigen.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="cardHolder">Name auf der Karte<span class="required">*</span></label>
+        <input type="text" id="cardHolder" placeholder="Anna Müller" autocomplete="cc-name">
+        <div class="field-error" id="cardHolderError">Bitte gib den Namen auf der Karte ein.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="cardNumber">Kartennummer<span class="required">*</span></label>
+        <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number">
+        <div class="field-error" id="cardNumberError">Bitte gib eine gültige Kartennummer ein.</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cardExpiry">Gültig bis<span class="required">*</span></label>
+          <input type="text" id="cardExpiry" placeholder="MM/JJ" maxlength="5" autocomplete="cc-exp">
+          <div class="field-error" id="cardExpiryError">Format: MM/JJ</div>
+        </div>
+        <div class="form-group">
+          <label for="cardCvc">CVC<span class="required">*</span></label>
+          <input type="text" id="cardCvc" placeholder="123" maxlength="4" autocomplete="cc-csc">
+          <div class="field-error" id="cardCvcError">3 oder 4 Ziffern</div>
+        </div>
+      </div>
+
+      <!-- Widerrufsbelehrung -->
+      <div style="border-top:1.5px solid var(--mid);margin:1.5rem 0;"></div>
+
+      <div class="widerrufs-toggle">
+        <button class="widerrufs-btn" onclick="toggleWiderrufs(this)" type="button">
+          <span>ℹ️</span> Widerrufsbelehrung (§355 BGB) lesen
+          <span style="margin-left:auto;" id="widerrufsArrow">▼</span>
+        </button>
+        <div class="widerrufs-content" id="widerrufsContent">
+          <!-- ⚠️ PLATZHALTER — durch anwaltlich geprüften Text ersetzen vor Launch -->
+          <strong>Widerrufsrecht</strong><br>
+          Sie haben das Recht, binnen 7 Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
+          Die Widerrufsfrist beträgt 7 Tage ab dem Tag des Vertragsabschlusses.<br><br>
+          <strong>Ausübung des Widerrufsrechts</strong><br>
+          Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (CLAVY, [Firmenanschrift — wird ergänzt])
+          mittels einer eindeutigen Erklärung über Ihren Entschluss, diesen Vertrag zu widerrufen,
+          informieren. Sie können dafür eine E-Mail an hallo@clavy.eu verwenden.<br><br>
+          <strong>Folgen des Widerrufs</strong><br>
+          Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen unverzüglich zurückzuzahlen.
+          Da die App-Nutzung erst nach der Testphase berechnet wird, entstehen Ihnen bei rechtzeitigem
+          Widerruf keine Kosten.<br><br>
+          <em style="color:#6B7280;">⚠️ Platzhalter — wird vor Launch durch anwaltlich geprüften Text ersetzt.</em>
+        </div>
+      </div>
+
+      <div class="waiver-card">
+        <div class="waiver-title">⚡ Sofortiger Zugang (§356 Abs. 5 BGB)</div>
+        <div class="waiver-text">
+          Wenn Sie die Checkbox unten anhaken, beginnen wir sofort mit der Ausführung des Vertrags.
+          Sie verlieren dadurch Ihr Widerrufsrecht für digitale Inhalte mit Beginn der Nutzung.
+          Ihre 7-tägige kostenlose Testphase ist davon nicht betroffen.
+        </div>
+        <div class="check-group" id="checkWaiver">
+          <label class="check-label">
+            <input type="checkbox" id="waiverCheck">
+            <div class="check-box"></div>
+            <span class="check-text" style="font-size:12px;">
+              <strong>Ich stimme ausdrücklich zu</strong>, dass mit der Ausführung des Vertrags sofort begonnen wird,
+              und ich weiß, dass ich mein Widerrufsrecht mit Beginn der Ausführung verliere. (§356 Abs. 5 BGB)<span class="required">*</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="submitBtn" onclick="submitRegistration()">
+        🔒 Kostenlos testen starten
+      </button>
+      <button class="btn-back" onclick="goToStep(2)">← Zurück</button>
+
+      <div class="security">
+        <div class="security-item">🔒 SSL-verschlüsselt</div>
+        <div class="security-item">🇪🇺 DSGVO-konform</div>
+        <div class="security-item">❌ Keine Werbung</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: ERFOLG -->
+  <div id="step4" class="step-content" style="display:none;">
+    <div class="card success-card">
+      <div class="success-icon">🎉</div>
+      <h2 class="success-title">Willkommen bei CLAVY!</h2>
+      <p class="success-sub">
+        Dein Konto ist erstellt. Du hast eine Bestätigungs-E-Mail erhalten — bitte bestätige deine Adresse um die App zu aktivieren.
+      </p>
+
+      <div style="background:var(--light);border-radius:12px;padding:1rem;margin-bottom:1.5rem;text-align:left;">
+        <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">Deine Testphase:</div>
+        <div style="font-size:13px;color:#374151;">7 Tage kostenlos · Endet am: <strong id="successTrialDate">—</strong></div>
+        <div style="font-size:13px;color:#6B7280;margin-top:4px;">Kündigung jederzeit in der App → Einstellungen → Abonnement</div>
+      </div>
+
+      <p style="font-size:14px;font-weight:600;color:var(--dark);margin-bottom:1rem;">App herunterladen:</p>
+
+      <div class="download-grid">
+        <!-- ⚠️ App-Store-Links eintragen sobald App live ist -->
+        <a href="#" class="download-btn download-ios">
+          🍎 App Store<br>
+          <span style="font-size:11px;font-weight:400;">Bald verfügbar</span>
+        </a>
+        <a href="#" class="download-btn download-android">
+          🤖 Google Play<br>
+          <span style="font-size:11px;font-weight:400;">Bald verfügbar</span>
+        </a>
+      </div>
+
+      <p class="email-note">
+        📬 Wir haben dir eine Bestätigungs-E-Mail mit der Widerrufsbelehrung und allen Vertragsdetails geschickt.
+        <br><br>
+        Fragen? <a href="mailto:hallo@clavy.eu" style="color:var(--blue);">hallo@clavy.eu</a>
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>
+    <a href="impressum.html">Impressum</a> ·
+    <a href="datenschutz.html">Datenschutz</a> ·
+    <a href="agb.html">AGB</a> ·
+    <a href="widerruf.html">Widerrufsbelehrung</a> ·
+    <a href="mailto:hallo@clavy.eu">Kontakt</a>
+  </p>
+  <p style="margin-top:8px;">© 2025 CLAVY UG (i.Gr.) · clavy.eu</p>
+</footer>
+
+<script>
+// ── Konfiguration ─────────────────────────────────────────────────────────────
+// ⚠️ N8N Webhook-URL — bei Railway hinterlegen und hier eintragen
+// Format: https://n8n-production-7470.up.railway.app/webhook/clavy-registration
+const N8N_REGISTRATION_WEBHOOK = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+
+// ── State ─────────────────────────────────────────────────────────────────────
+const state = {
+  selectedPlan: 'annual',
+  selectedPriceCents: 1999,
+  currentStep: 1,
+};
+
+// ── Plan-Auswahl ─────────────────────────────────────────────────────────────
+function selectPlan(interval, priceCents, el) {
+  state.selectedPlan = interval;
+  state.selectedPriceCents = priceCents;
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── Schritt-Navigation ────────────────────────────────────────────────────────
+function goToStep(step) {
+  document.querySelectorAll('.step-content').forEach(s => s.style.display = 'none');
+  document.getElementById('step' + step).style.display = 'block';
+  state.currentStep = step;
+
+  // Progress-Bar aktualisieren
+  document.querySelectorAll('.progress-step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.remove('active', 'done');
+    if (s < step) el.classList.add('done');
+    else if (s === step) el.classList.add('active');
+  });
+
+  // Trial-Ende berechnen
+  if (step === 3) {
+    const trialEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const fmt = trialEnd.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const el = document.getElementById('trialEndDate');
+    if (el) el.textContent = fmt;
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Step 2 Validierung ────────────────────────────────────────────────────────
+function validateStep2() {
+  let valid = true;
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+  // E-Mail
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  setFieldError('email', 'emailError', !emailOk);
+  if (!emailOk) valid = false;
+
+  // Passwort
+  const passwordOk = password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
+  setFieldError('password', 'passwordError', !passwordOk);
+  if (!passwordOk) valid = false;
+
+  // Passwort bestätigen
+  const confirmOk = password === passwordConfirm && password.length > 0;
+  setFieldError('passwordConfirm', 'passwordConfirmError', !confirmOk);
+  if (!confirmOk) valid = false;
+
+  // Checkboxen
+  const ageOk = document.getElementById('ageCheck').checked;
+  const agbOk = document.getElementById('agbCheck').checked;
+  const dsgvoOk = document.getElementById('dsgvoCheck').checked;
+  if (!ageOk || !agbOk || !dsgvoOk) {
+    document.getElementById('step2Error').textContent = 'Bitte bestätige alle Pflichtfelder.';
+    document.getElementById('step2Error').classList.add('visible');
+    valid = false;
+  } else {
+    document.getElementById('step2Error').classList.remove('visible');
+  }
+
+  if (valid) goToStep(3);
+}
+
+function setFieldError(inputId, errorId, show) {
+  const input = document.getElementById(inputId);
+  const error = document.getElementById(errorId);
+  if (!input || !error) return;
+  if (show) { input.classList.add('error'); error.classList.add('visible'); }
+  else { input.classList.remove('error'); error.classList.remove('visible'); }
+}
+
+// ── Kreditkarten-Formatierung ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const cardNum = document.getElementById('cardNumber');
+  if (cardNum) {
+    cardNum.addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').substring(0, 16);
+      this.value = v.replace(/(.{4})/g, '$1 ').trim();
+    });
+  }
+  const expiry = document.getElementById('cardExpiry');
+  if (expiry) {
+    expiry.addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').substring(0, 4);
+      if (v.length >= 2) v = v.substring(0, 2) + '/' + v.substring(2);
+      this.value = v;
+    });
+  }
+});
+
+// ── Widerrufsbelehrung Toggle ─────────────────────────────────────────────────
+function toggleWiderrufs(btn) {
+  const content = document.getElementById('widerrufsContent');
+  const arrow = document.getElementById('widerrufsArrow');
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open');
+  arrow.textContent = isOpen ? '▼' : '▲';
+}
+
+// ── Registrierung abschicken ──────────────────────────────────────────────────
+async function submitRegistration() {
+  let valid = true;
+
+  // Pflichtfelder prüfen
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const cardHolder = document.getElementById('cardHolder').value.trim();
+  const cardNumber = document.getElementById('cardNumber').value.trim();
+  const cardExpiry = document.getElementById('cardExpiry').value.trim();
+  const cardCvc = document.getElementById('cardCvc').value.trim();
+  const waiverChecked = document.getElementById('waiverCheck').checked;
+
+  if (!firstName) { setFieldError('firstName', 'firstNameError', true); valid = false; } else setFieldError('firstName', 'firstNameError', false);
+  if (!lastName) { setFieldError('lastName', 'lastNameError', true); valid = false; } else setFieldError('lastName', 'lastNameError', false);
+  if (!cardHolder) { setFieldError('cardHolder', 'cardHolderError', true); valid = false; } else setFieldError('cardHolder', 'cardHolderError', false);
+  if (cardNumber.replace(/\s/g, '').length < 16) { setFieldError('cardNumber', 'cardNumberError', true); valid = false; } else setFieldError('cardNumber', 'cardNumberError', false);
+  if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) { setFieldError('cardExpiry', 'cardExpiryError', true); valid = false; } else setFieldError('cardExpiry', 'cardExpiryError', false);
+  if (cardCvc.length < 3) { setFieldError('cardCvc', 'cardCvcError', true); valid = false; } else setFieldError('cardCvc', 'cardCvcError', false);
+
+  if (!waiverChecked) {
+    document.getElementById('step3Error').textContent = 'Bitte bestätige den Widerrufs-Waiver um fortzufahren (§356 Abs. 5 BGB).';
+    document.getElementById('step3Error').classList.add('visible');
+    return;
+  }
+
+  if (!valid) {
+    document.getElementById('step3Error').textContent = 'Bitte fülle alle Pflichtfelder aus.';
+    document.getElementById('step3Error').classList.add('visible');
+    return;
+  }
+
+  document.getElementById('step3Error').classList.remove('visible');
+
+  // Submit-Button deaktivieren
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Konto wird erstellt…';
+
+  // Daten zusammenbauen
+  const payload = {
+    email: document.getElementById('email').value.trim(),
+    password: document.getElementById('password').value,
+    firstName,
+    lastName,
+    birthYear: parseInt(document.getElementById('birthYear').value) || null,
+    countryCode: document.getElementById('country').value,
+    isUsPerson: false,
+    planInterval: state.selectedPlan,
+    priceCents: state.selectedPriceCents,
+    consentVersion: '1.0',
+    widerrufsWaiverAccepted: true,
+    source: new URLSearchParams(window.location.search).get('source') || 'web',
+    // ⚠️ Kartendaten — im Mock-Betrieb werden diese NICHT gespeichert.
+    // Bei Stripe-Anbindung: hier nur Stripe-Token, nie rohe Kartendaten an Backend!
+    _mockPayment: true,
+  };
+
+  try {
+    const response = await fetch(N8N_REGISTRATION_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) throw new Error('Registrierung fehlgeschlagen (Status ' + response.status + ')');
+
+    // Erfolg
+    const trialEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const fmt = trialEnd.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const dateEl = document.getElementById('successTrialDate');
+    if (dateEl) dateEl.textContent = fmt;
+
+    goToStep(4);
+
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = '🔒 Kostenlos testen starten';
+    const errEl = document.getElementById('step3Error');
+    errEl.textContent = 'Registrierung fehlgeschlagen. Bitte versuche es erneut oder schreib uns: hallo@clavy.eu';
+    errEl.classList.add('visible');
+    console.error('[CLAVY Registration]', err);
+  }
+}
+</script>
+</body>
+</html>

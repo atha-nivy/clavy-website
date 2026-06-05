@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAVY — Allgemeine Geschäftsbedingungen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0F2A5F;
+  --blue: #1E5AF0;
+  --green: #10B981;
+  --rose: #FFB5A7;
+  --gold: #FFE08A;
+  --light: #F7F9FC;
+  --mid: #D9DEE7;
+  --dark: #1F2A37;
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); min-height: 100vh; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(217,222,231,0.5);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; }
+.nav-wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: 1px; }
+.nav-back { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.65; transition: opacity 0.2s; display: flex; align-items: center; gap: 6px; }
+.nav-back:hover { opacity: 1; }
+
+main { padding: 7rem 1.5rem 5rem; max-width: 720px; margin: 0 auto; }
+
+.doc-header { margin-bottom: 3rem; }
+.doc-label { font-size: 12px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; }
+.doc-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+.doc-meta { font-size: 13px; color: #6B7280; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.doc-meta span { display: flex; align-items: center; gap: 5px; }
+
+.placeholder-banner {
+  background: #FEF3C7;
+  border: 1.5px solid #D97706;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.placeholder-banner-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.placeholder-banner p { font-size: 13px; color: #92400E; line-height: 1.6; }
+.placeholder-banner strong { color: #78350F; }
+
+.doc-toc {
+  background: white;
+  border: 1px solid var(--mid);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.doc-toc-title { font-size: 12px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+.doc-toc ol { padding-left: 1.2rem; }
+.doc-toc li { margin-bottom: 0.4rem; }
+.doc-toc a { font-size: 14px; color: var(--blue); text-decoration: none; }
+.doc-toc a:hover { text-decoration: underline; }
+
+.doc-section { margin-bottom: 2.5rem; scroll-margin-top: 80px; }
+.doc-section h2 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--mid); }
+.doc-section h3 { font-weight: 600; font-size: 0.95rem; color: var(--dark); margin: 1.25rem 0 0.5rem; }
+.doc-section p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 0.75rem; }
+.doc-section ul, .doc-section ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+.doc-section li { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 0.25rem; }
+.doc-section a { color: var(--blue); }
+
+.highlight-box {
+  background: rgba(30,90,240,0.05);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.highlight-box p { margin-bottom: 0; font-size: 14px; }
+
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 2rem;
+  text-align: center;
+}
+footer a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 0.75rem; font-size: 13px; }
+footer a:hover { color: white; }
+footer p { font-size: 12px; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" opacity="0.9"/>
+        <path d="M2 17L12 22L22 17" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M2 12L12 17L22 12" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">CLAVY</span>
+  </a>
+  <a href="index.html" class="nav-back">← Zurück zur Startseite</a>
+</nav>
+
+<main>
+  <div class="doc-header">
+    <div class="doc-label">Rechtliches</div>
+    <h1 class="doc-title">Allgemeine Geschäftsbedingungen</h1>
+    <div class="doc-meta">
+      <span>📄 CLAVY GmbH</span>
+      <span>🗓️ Stand: [DATUM EINSETZEN]</span>
+      <span>🔄 Version 1.0</span>
+    </div>
+  </div>
+
+  <div class="placeholder-banner">
+    <div class="placeholder-banner-icon">⚠️</div>
+    <p>
+      <strong>Platzhalter — anwaltliche Prüfung ausstehend.</strong>
+      Dieser Text ist ein strukturierter Entwurf und ersetzt keine Rechtsberatung.
+      Vor dem Launch durch einen auf IT-Recht spezialisierten Anwalt prüfen lassen.
+    </p>
+  </div>
+
+  <div class="doc-toc">
+    <div class="doc-toc-title">Inhaltsverzeichnis</div>
+    <ol>
+      <li><a href="#s1">Geltungsbereich und Anbieter</a></li>
+      <li><a href="#s2">Vertragsgegenstand und Leistungsbeschreibung</a></li>
+      <li><a href="#s3">Registrierung und Nutzerkonto</a></li>
+      <li><a href="#s4">Abonnement, Preise und Zahlung</a></li>
+      <li><a href="#s5">Kostenlose Testphase</a></li>
+      <li><a href="#s6">Widerrufsrecht</a></li>
+      <li><a href="#s7">Kündigung</a></li>
+      <li><a href="#s8">Nutzungsrechte und Inhalte</a></li>
+      <li><a href="#s9">Kinderschutz und Datenschutz</a></li>
+      <li><a href="#s10">Haftung</a></li>
+      <li><a href="#s11">Änderungen der AGB</a></li>
+      <li><a href="#s12">Schlussbestimmungen</a></li>
+    </ol>
+  </div>
+
+  <!-- §1 -->
+  <div class="doc-section" id="s1">
+    <h2>§ 1 Geltungsbereich und Anbieter</h2>
+    <p>Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen</p>
+    <div class="highlight-box">
+      <p>
+        <strong>[FIRMENNAME] GmbH</strong><br>
+        [Straße, Hausnummer]<br>
+        [PLZ Ort], Deutschland<br>
+        E-Mail: hallo@clavy.eu<br>
+        Geschäftsführung: [NAME]<br>
+        Registergericht: [Gericht], HRB [NUMMER]<br>
+        USt-IdNr.: DE[NUMMER]
+      </p>
+    </div>
+    <p>(nachfolgend „CLAVY" oder „wir") und Nutzern der CLAVY-App und Website (nachfolgend „Nutzer" oder „Sie").</p>
+    <p>Verbraucher im Sinne dieser AGB ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).</p>
+  </div>
+
+  <!-- §2 -->
+  <div class="doc-section" id="s2">
+    <h2>§ 2 Vertragsgegenstand und Leistungsbeschreibung</h2>
+    <p>CLAVY ist eine digitale Finanzbildungs-App für Kinder und Jugendliche im Alter von 7 bis 17 Jahren. Die App ermöglicht:</p>
+    <ul>
+      <li>Interaktive Lernmissionen zu Finanzthemen (Sparen, Budgetieren, Investieren)</li>
+      <li>Gamifiziertes Lernsystem mit Erfahrungspunkten (XP) und Leveln</li>
+      <li>Virtuelle Aufgaben- und Coin-Verwaltung zwischen Elternteil und Kind</li>
+      <li>Sparziel-Verfolgung (virtuelle Coins — kein echtes Geld)</li>
+      <li>Eltern-Dashboard zur Steuerung und Übersicht</li>
+    </ul>
+    <p>Virtuelle Coins innerhalb der App stellen keine Zahlungsmittel, kein E-Geld und kein Guthaben im Sinne des Zahlungsdiensteaufsichtsgesetzes (ZAG) dar. Sie dienen ausschließlich als Lernbelohnung innerhalb der App.</p>
+  </div>
+
+  <!-- §3 -->
+  <div class="doc-section" id="s3">
+    <h2>§ 3 Registrierung und Nutzerkonto</h2>
+    <p>Die Registrierung ist ausschließlich für volljährige Elternteile oder Erziehungsberechtigte (mindestens 18 Jahre) zulässig. Kinder erhalten keinen eigenen Zugang — sie werden innerhalb des Eltern-Accounts als Kindprofil angelegt.</p>
+    <p>Bei der Registrierung sind wahrheitsgemäße Angaben zu machen. Das Konto ist nicht übertragbar. Der Nutzer ist für die Sicherheit seiner Zugangsdaten verantwortlich.</p>
+    <p>CLAVY behält sich das Recht vor, Konten bei Verstoß gegen diese AGB oder geltendes Recht zu sperren oder zu löschen.</p>
+  </div>
+
+  <!-- §4 -->
+  <div class="doc-section" id="s4">
+    <h2>§ 4 Abonnement, Preise und Zahlung</h2>
+    <h3>4.1 Abonnement-Modelle</h3>
+    <p>CLAVY bietet folgende Abonnement-Modelle an:</p>
+    <ul>
+      <li><strong>Monatlich:</strong> € 2,49 pro Monat (monatlich kündbar)</li>
+      <li><strong>Jährlich:</strong> € 19,99 pro Jahr (ca. € 1,67 pro Monat — ca. 33% Ersparnis)</li>
+    </ul>
+    <p>Alle Preise sind Endpreise inkl. gesetzlicher MwSt.</p>
+    <h3>4.2 Zahlung</h3>
+    <p>Die Zahlung erfolgt über [Stripe / SEPA-Lastschrift / Kreditkarte — KONKRETISIEREN]. Bei Jahresabonnements wird der Gesamtbetrag zum Beginn des Abrechnungszeitraums fällig.</p>
+    <h3>4.3 Automatische Verlängerung</h3>
+    <p>Das Abonnement verlängert sich automatisch um den jeweils gewählten Zeitraum, sofern es nicht rechtzeitig gekündigt wird (siehe § 7). Eine Zahlungsbestätigung wird per E-Mail zugesandt.</p>
+  </div>
+
+  <!-- §5 -->
+  <div class="doc-section" id="s5">
+    <h2>§ 5 Kostenlose Testphase</h2>
+    <p>Neue Nutzer erhalten eine kostenlose Testphase von <strong>7 Tagen</strong> ab Vertragsschluss. In diesem Zeitraum ist der vollständige Funktionsumfang zugänglich.</p>
+    <p>Nach Ablauf der Testphase beginnt automatisch das kostenpflichtige Abonnement, sofern das Konto nicht zuvor gelöscht wird. Eine Kündigung während der Testphase ist jederzeit möglich (siehe § 7).</p>
+    <p>Eine Kreditkarte ist für die Testphase erforderlich, wird aber erst nach Ablauf der Testphase belastet.</p>
+  </div>
+
+  <!-- §6 -->
+  <div class="doc-section" id="s6">
+    <h2>§ 6 Widerrufsrecht</h2>
+    <p>Als Verbraucher steht Ihnen ein gesetzliches Widerrufsrecht gemäß §§ 355 ff. BGB zu. Bitte lesen Sie dazu unsere separate</p>
+    <div class="highlight-box">
+      <p>📄 <strong><a href="widerruf.html">Widerrufsbelehrung und Muster-Widerrufsformular</a></strong> — vollständige Information über Ihr Widerrufsrecht.</p>
+    </div>
+    <p>Wenn Sie die CLAVY-App sofort nach Vertragsschluss (noch innerhalb der 14-tägigen Widerrufsfrist) vollständig nutzen möchten, können Sie ausdrücklich auf Ihr Widerrufsrecht für die bereits erbrachte Leistung verzichten (§ 356 Abs. 5 BGB). Dieser Verzicht wird im Registrierungsformular gesondert abgefragt und ist optional.</p>
+  </div>
+
+  <!-- §7 -->
+  <div class="doc-section" id="s7">
+    <h2>§ 7 Kündigung</h2>
+    <h3>7.1 Kündigung durch den Nutzer</h3>
+    <p>Sie können Ihr Abonnement jederzeit zum Ende des jeweiligen Abrechnungszeitraums kündigen:</p>
+    <ul>
+      <li><strong>In der App:</strong> Einstellungen → Abonnement → Kündigen (§ 312k BGB konformer Kündigungsbutton)</li>
+      <li><strong>Per E-Mail:</strong> hallo@clavy.eu</li>
+    </ul>
+    <p>Nach der Kündigung bleibt der Zugang bis zum Ende des bezahlten Zeitraums bestehen. Eine Erstattung anteiliger Beiträge erfolgt nicht, außer im gesetzlich vorgeschriebenen Umfang.</p>
+    <h3>7.2 Kündigung durch CLAVY</h3>
+    <p>CLAVY kann das Nutzerkonto aus wichtigem Grund mit sofortiger Wirkung kündigen, insbesondere bei schwerwiegendem Verstoß gegen diese AGB oder bei falschen Angaben bei der Registrierung.</p>
+    <h3>7.3 Datenlöschung nach Kündigung</h3>
+    <p>Nach Vertragsende werden personenbezogene Daten gemäß unserer Datenschutzerklärung und den gesetzlichen Aufbewahrungspflichten behandelt.</p>
+  </div>
+
+  <!-- §8 -->
+  <div class="doc-section" id="s8">
+    <h2>§ 8 Nutzungsrechte und Inhalte</h2>
+    <p>CLAVY räumt Ihnen für die Dauer des Abonnements ein nicht-exklusives, nicht übertragbares Recht zur Nutzung der App für den privaten Gebrauch im Rahmen Ihrer Familie ein.</p>
+    <p>Sämtliche Inhalte (Texte, Bilder, Grafiken, Lernmissionen, Spielkonzepte) sind urheberrechtlich geschützt und dürfen nicht ohne Zustimmung von CLAVY vervielfältigt, verbreitet oder öffentlich zugänglich gemacht werden.</p>
+  </div>
+
+  <!-- §9 -->
+  <div class="doc-section" id="s9">
+    <h2>§ 9 Kinderschutz und Datenschutz</h2>
+    <p>Der Schutz von Kindern und ihrer Daten hat für CLAVY höchste Priorität:</p>
+    <ul>
+      <li>Kinder erhalten keinen eigenen Login und kein eigenes Konto</li>
+      <li>Kinderdaten werden gemäß DSGVO Art. 8 nur mit ausdrücklicher Einwilligung des Elternteils verarbeitet</li>
+      <li>Keine Weitergabe von Kinderdaten an Dritte zu Werbezwecken</li>
+      <li>Elternteile können alle Kinderdaten jederzeit löschen</li>
+      <li>Kein Dark-Pattern-Design im Kinderbereich: keine Kaufaufforderungen, keine Druckmechanismen</li>
+    </ul>
+    <p>Vollständige Informationen finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+  </div>
+
+  <!-- §10 -->
+  <div class="doc-section" id="s10">
+    <h2>§ 10 Haftung</h2>
+    <p>CLAVY haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit sowie für Schäden durch vorsätzliches oder grob fahrlässiges Verhalten.</p>
+    <p>Bei leichter Fahrlässigkeit haftet CLAVY nur bei Verletzung wesentlicher Vertragspflichten (Kardinalpflichten) und beschränkt auf den vorhersehbaren, vertragstypischen Schaden.</p>
+    <p>CLAVY ist eine Lern-App und kein Finanzberater. Keine der Inhalte stellt eine Anlageberatung oder Empfehlung zum Kauf oder Verkauf von Finanzinstrumenten dar.</p>
+  </div>
+
+  <!-- §11 -->
+  <div class="doc-section" id="s11">
+    <h2>§ 11 Änderungen der AGB</h2>
+    <p>CLAVY behält sich vor, diese AGB mit angemessener Ankündigungsfrist von mindestens 30 Tagen zu ändern. Änderungen werden per E-Mail mitgeteilt. Wenn Sie der Änderung nicht widersprechen, gelten die neuen AGB als akzeptiert. Im Fall des Widerspruchs haben Sie das Recht zur außerordentlichen Kündigung.</p>
+  </div>
+
+  <!-- §12 -->
+  <div class="doc-section" id="s12">
+    <h2>§ 12 Schlussbestimmungen</h2>
+    <p>Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.</p>
+    <p>Gerichtsstand für Kaufleute und juristische Personen des öffentlichen Rechts ist [ORT].</p>
+    <p>Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+    <p>Die EU-Kommission stellt unter <a href="https://ec.europa.eu/consumers/odr" target="_blank">https://ec.europa.eu/consumers/odr</a> eine Plattform zur Online-Streitbeilegung bereit. CLAVY ist nicht zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle verpflichtet und nimmt daran nicht teil.</p>
+  </div>
+</main>
+
+<footer>
+  <a href="agb.html">AGB</a>
+  <a href="datenschutz.html">Datenschutz</a>
+  <a href="widerruf.html">Widerrufsbelehrung</a>
+  <a href="impressum.html">Impressum</a>
+  <a href="index.html">Startseite</a>
+  <p>© 2026 CLAVY — hallo@clavy.eu</p>
+</footer>
+
+</body>
+</html>
