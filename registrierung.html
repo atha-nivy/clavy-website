@@ -246,21 +246,21 @@ footer a:hover { text-decoration: underline; }
   <div id="step1" class="step-content">
     <div class="card">
       <h1 style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;">Deinen Plan wählen</h1>
-      <p style="font-size:14px;color:#6B7280;margin-bottom:1.5rem;">7 Tage kostenlos testen — keine Kreditkarte nötig bis Tag 7</p>
+      <p style="font-size:14px;color:#6B7280;margin-bottom:1.5rem;">14 Tage kostenlos testen — keine Kreditkarte nötig bis Tag 14</p>
 
       <div class="plan-grid">
         <div class="plan-card" id="planMonatlich" onclick="selectPlan('monthly', 249, this)">
           <div class="plan-name">Monatlich</div>
           <div class="plan-price">€2,49<span>/Mo</span></div>
           <div class="plan-per">monatlich kündbar</div>
-          <div class="plan-trial">✓ 7 Tage gratis</div>
+          <div class="plan-trial">✓ 14 Tage gratis</div>
         </div>
         <div class="plan-card selected" id="planJaehrlich" onclick="selectPlan('annual', 1999, this)">
           <div class="plan-badge">Empfohlen</div>
           <div class="plan-name">Jährlich</div>
           <div class="plan-price">€19,99<span>/Jahr</span></div>
           <div class="plan-per">€1,67 pro Monat</div>
-          <div class="plan-trial">✓ 7 Tage gratis</div>
+          <div class="plan-trial">✓ 14 Tage gratis</div>
           <div class="plan-savings">33% Ersparnis</div>
         </div>
       </div>
@@ -432,25 +432,6 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
 
-      <div class="waiver-card">
-        <div class="waiver-title">⚡ Sofortiger Zugang (§356 Abs. 5 BGB)</div>
-        <div class="waiver-text">
-          Wenn Sie die Checkbox unten anhaken, beginnen wir sofort mit der Ausführung des Vertrags.
-          Sie verlieren dadurch Ihr Widerrufsrecht für digitale Inhalte mit Beginn der Nutzung.
-          Ihre 7-tägige kostenlose Testphase ist davon nicht betroffen.
-        </div>
-        <div class="check-group" id="checkWaiver">
-          <label class="check-label">
-            <input type="checkbox" id="waiverCheck">
-            <div class="check-box"></div>
-            <span class="check-text" style="font-size:12px;">
-              <strong>Ich stimme ausdrücklich zu</strong>, dass mit der Ausführung des Vertrags sofort begonnen wird,
-              und ich weiß, dass ich mein Widerrufsrecht mit Beginn der Ausführung verliere. (§356 Abs. 5 BGB)<span class="required">*</span>
-            </span>
-          </label>
-        </div>
-      </div>
-
       <button class="btn-primary" id="submitBtn" onclick="submitRegistration()">
         🔒 Kostenlos testen starten
       </button>
@@ -475,7 +456,7 @@ footer a:hover { text-decoration: underline; }
 
       <div style="background:var(--light);border-radius:12px;padding:1rem;margin-bottom:1.5rem;text-align:left;">
         <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">Deine Testphase:</div>
-        <div style="font-size:13px;color:#374151;">7 Tage kostenlos · Endet am: <strong id="successTrialDate">—</strong></div>
+        <div style="font-size:13px;color:#374151;">14 Tage kostenlos · Endet am: <strong id="successTrialDate">—</strong></div>
         <div style="font-size:13px;color:#6B7280;margin-top:4px;">Kündigung jederzeit in der App → Einstellungen → Abonnement</div>
       </div>
 
@@ -518,7 +499,7 @@ footer a:hover { text-decoration: underline; }
 // ── Konfiguration ─────────────────────────────────────────────────────────────
 // ⚠️ N8N Webhook-URL — bei Railway hinterlegen und hier eintragen
 // Format: https://n8n-production-7470.up.railway.app/webhook/clavy-registration
-const N8N_REGISTRATION_WEBHOOK = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+const N8N_REGISTRATION_WEBHOOK = 'https://n8n-production-97d4.up.railway.app/webhook/clavy-registration-staging';
 
 // ── State ─────────────────────────────────────────────────────────────────────
 const state = {
@@ -551,7 +532,7 @@ function goToStep(step) {
 
   // Trial-Ende berechnen
   if (step === 3) {
-    const trialEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
     const fmt = trialEnd.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
     const el = document.getElementById('trialEndDate');
     if (el) el.textContent = fmt;
@@ -644,20 +625,12 @@ async function submitRegistration() {
   const cardNumber = document.getElementById('cardNumber').value.trim();
   const cardExpiry = document.getElementById('cardExpiry').value.trim();
   const cardCvc = document.getElementById('cardCvc').value.trim();
-  const waiverChecked = document.getElementById('waiverCheck').checked;
-
   if (!firstName) { setFieldError('firstName', 'firstNameError', true); valid = false; } else setFieldError('firstName', 'firstNameError', false);
   if (!lastName) { setFieldError('lastName', 'lastNameError', true); valid = false; } else setFieldError('lastName', 'lastNameError', false);
   if (!cardHolder) { setFieldError('cardHolder', 'cardHolderError', true); valid = false; } else setFieldError('cardHolder', 'cardHolderError', false);
   if (cardNumber.replace(/\s/g, '').length < 16) { setFieldError('cardNumber', 'cardNumberError', true); valid = false; } else setFieldError('cardNumber', 'cardNumberError', false);
   if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) { setFieldError('cardExpiry', 'cardExpiryError', true); valid = false; } else setFieldError('cardExpiry', 'cardExpiryError', false);
   if (cardCvc.length < 3) { setFieldError('cardCvc', 'cardCvcError', true); valid = false; } else setFieldError('cardCvc', 'cardCvcError', false);
-
-  if (!waiverChecked) {
-    document.getElementById('step3Error').textContent = 'Bitte bestätige den Widerrufs-Waiver um fortzufahren (§356 Abs. 5 BGB).';
-    document.getElementById('step3Error').classList.add('visible');
-    return;
-  }
 
   if (!valid) {
     document.getElementById('step3Error').textContent = 'Bitte fülle alle Pflichtfelder aus.';
@@ -681,10 +654,10 @@ async function submitRegistration() {
     birthYear: parseInt(document.getElementById('birthYear').value) || null,
     countryCode: document.getElementById('country').value,
     isUsPerson: false,
-    planInterval: state.selectedPlan,
+    billingInterval: state.selectedPlan,
     priceCents: state.selectedPriceCents,
     consentVersion: '1.0',
-    widerrufsWaiverAccepted: true,
+    widerrufsWaiverAccepted: false,
     source: new URLSearchParams(window.location.search).get('source') || 'web',
     // ⚠️ Kartendaten — im Mock-Betrieb werden diese NICHT gespeichert.
     // Bei Stripe-Anbindung: hier nur Stripe-Token, nie rohe Kartendaten an Backend!
@@ -701,7 +674,7 @@ async function submitRegistration() {
     if (!response.ok) throw new Error('Registrierung fehlgeschlagen (Status ' + response.status + ')');
 
     // Erfolg
-    const trialEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const trialEnd = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
     const fmt = trialEnd.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
     const dateEl = document.getElementById('successTrialDate');
     if (dateEl) dateEl.textContent = fmt;
