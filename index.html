@@ -1245,7 +1245,9 @@ footer {
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// Scroll-Animationen
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1254,13 +1256,59 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1 });
-
 document.querySelectorAll('.feature-card, .how-step, .parent-card').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
+
+// Founding Families Counter (Supabase RPC)
+(async function loadCounter() {
+  const SUPABASE_URL = 'https://wqhjgmexqiyhrlfwyeqm.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaGpnbWV4cWl5aHJsZnd5ZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxNzE4MDMsImV4cCI6MjA2MTc0NzgwM30.bT6-E4GCwDfM5yb1wbIHvMHY2O1l_JlMsj2wFpjAM8k';
+  const FOUNDING_LIMIT = 500;
+
+  try {
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data, error } = await db.rpc('get_founding_families_count');
+    if (error || data === null) return;
+
+    const count = Math.min(data, FOUNDING_LIMIT);
+    const pct = Math.round((count / FOUNDING_LIMIT) * 100);
+    const remaining = FOUNDING_LIMIT - count;
+
+    // Counter animiert hochzählen
+    const numEl = document.getElementById('counterNum');
+    const barEl = document.getElementById('counterBar');
+    const heroStatEl = document.querySelector('.hero-stat-num.gold');
+
+    if (numEl) {
+      let current = 0;
+      const step = Math.max(1, Math.floor(count / 40));
+      const timer = setInterval(() => {
+        current = Math.min(current + step, count);
+        numEl.textContent = current.toLocaleString('de-DE');
+        if (current >= count) clearInterval(timer);
+      }, 30);
+    }
+
+    if (barEl) {
+      setTimeout(() => { barEl.style.width = pct + '%'; }, 100);
+    }
+
+    // Hero-Stat "500 Gründerplätze frei" → remaining aktualisieren
+    if (heroStatEl) {
+      heroStatEl.textContent = remaining > 0 ? remaining : '0';
+      const labelEl = heroStatEl.nextElementSibling;
+      if (labelEl) labelEl.textContent = remaining > 0 ? 'Plätze noch frei' : 'Voll — auf Warteliste';
+    }
+
+  } catch (_) {
+    // Stiller Fehler — statischer Fallback bleibt
+  }
+})();
 </script>
 </body>
 </html>
