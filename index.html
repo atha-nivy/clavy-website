@@ -785,6 +785,149 @@ footer {
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
+/* FOUNDING FAMILIES */
+.founding {
+  padding: 6rem 2rem;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+.founding::before {
+  content: '';
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,224,138,0.08) 0%, transparent 60%);
+  top: -250px; right: -250px;
+  pointer-events: none;
+}
+.founding-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.founding-badge-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,224,138,0.12);
+  border: 1.5px solid rgba(255,224,138,0.35);
+  border-radius: 50px;
+  padding: 10px 24px;
+  margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--gold);
+}
+.founding-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+.founding-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto 3rem;
+}
+.founding-counter {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2.5rem;
+}
+.counter-bar-bg {
+  height: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+.counter-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #F59E0B);
+  border-radius: 10px;
+  transition: width 1.2s ease;
+}
+.counter-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.counter-left { text-align: left; }
+.counter-right { text-align: right; }
+.counter-num {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.counter-sublabel {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+.counter-total {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: rgba(255,255,255,0.25);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.founding-benefits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+.founding-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.founding-benefit-icon { font-size: 20px; flex-shrink: 0; }
+.founding-benefit-text { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.45; }
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 24px rgba(255,224,138,0.25);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(255,224,138,0.35);
+}
+.founding-after {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 1.25rem;
+  font-family: 'Inter', sans-serif;
+}
+
 @media (max-width: 768px) {
   .features-grid { grid-template-columns: 1fr; }
   .how-inner { grid-template-columns: 1fr; }
@@ -793,6 +936,7 @@ footer {
   .hero-stats { flex-direction: column; border-radius: 16px; }
   .hero-stat { border-radius: 0 !important; }
   .form-row { grid-template-columns: 1fr; }
+  .founding-benefits { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -812,43 +956,43 @@ footer {
   </a>
   <ul class="nav-links">
     <li><a href="#features">Produkt</a></li>
+    <li><a href="#founding">Founding Families</a></li>
     <li><a href="#how">So funktioniert's</a></li>
-    <li><a href="#parents">Für Eltern</a></li>
   </ul>
-  <a href="registrierung.html" class="nav-cta">Jetzt registrieren</a>
+  <a href="registrierung.html" class="nav-cta">Founding Family werden</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-badge">
     <div class="hero-dot"></div>
-    <span>Jetzt in der Beta — kostenlos registrieren</span>
+    <span>⭐ Founding Families — 500 kostenlose Gründerplätze</span>
   </div>
   <h1 class="hero-headline">
-    Kinder lernen alles in der Schule — nur nicht den Umgang mit Geld. <em>Clavy ändert das.</em>
+    Kinder lernen alles in der Schule — nur nicht den Umgang mit Geld. <em>CLAVY ändert das.</em>
   </h1>
   <p class="hero-sub">
-    Die Familien-App, die deinem Kind Verantwortung mit Geld beibringt — und dich als Elternteil begleitet.
+    Die Finanz-Lern-App für Familien. Finanzwissen für Kinder, Überblick für Eltern — in einer App.
   </p>
   <div class="hero-actions">
     <a href="registrierung.html" class="btn-primary">
-      <span>14 Tage kostenlos testen</span>
+      <span>Founding Family werden</span>
       <span>→</span>
     </a>
-    <a href="#how" class="btn-secondary">Mehr erfahren</a>
+    <a href="#founding" class="btn-secondary">Was ist das?</a>
   </div>
   <div class="hero-stats">
     <div class="hero-stat">
-      <div class="hero-stat-num green">7–17</div>
+      <div class="hero-stat-num green">8–16</div>
       <div class="hero-stat-label">Altersgruppe</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num gold">3 in 1</div>
-      <div class="hero-stat-label">Learn · Pay · Save</div>
+      <div class="hero-stat-num gold">500</div>
+      <div class="hero-stat-label">Gründerplätze frei</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num blue">EU</div>
-      <div class="hero-stat-label">Reguliert &amp; sicher</div>
+      <div class="hero-stat-num blue">0€</div>
+      <div class="hero-stat-label">Für Gründer immer</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num" style="color: var(--blue);">100%</div>
@@ -871,9 +1015,9 @@ footer {
       <p class="feature-desc">Interaktive Lektionen zu Sparen, Ausgaben, Zinsen und Investieren — spielerisch aufgebaut, altersgerecht erklärt.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon green">💳</div>
-      <div class="feature-title">Clavy Pay</div>
-      <p class="feature-desc">Eine Jugendkarte die Eltern kontrollieren können. Online und offline bezahlen, mit klaren Limits und Echtzeit-Benachrichtigungen.</p>
+      <div class="feature-icon green">⭐</div>
+      <div class="feature-title">Aufgaben &amp; Sterne</div>
+      <p class="feature-desc">Kinder verdienen Sterne durch Aufgaben, die Eltern erstellen. Jede erledigte Aufgabe wird vom Elternteil genehmigt — volle Kontrolle.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon gold">🎯</div>
@@ -923,8 +1067,8 @@ footer {
         <div class="how-step">
           <div class="step-num">3</div>
           <div>
-            <div class="step-title">Lernen, Sparen, Bezahlen</div>
-            <p class="step-desc">Sofort loslegen mit Lektionen, Sparzielen und der Clavy Card — alles unter einem Dach.</p>
+            <div class="step-title">Lernen, Aufgaben, Sparziele</div>
+            <p class="step-desc">Sofort loslegen: Lernmissionen absolvieren, Aufgaben erledigen, Sterne sammeln und Sparziele verfolgen.</p>
           </div>
         </div>
       </div>
@@ -977,18 +1121,70 @@ footer {
   </div>
 </section>
 
+<!-- FOUNDING FAMILIES -->
+<section class="founding" id="founding">
+  <div class="founding-inner">
+    <div class="founding-badge-preview">⭐ Founding Family Badge</div>
+    <h2 class="founding-title">Die ersten 500 Familien<br/>gestalten CLAVY mit.</h2>
+    <p class="founding-sub">
+      Als Founding Family bekommst du CLAVY für immer kostenlos — und deinen persönlichen Badge in der App. Kein Ablaufdatum. Kein Kleingedrucktes.
+    </p>
+
+    <div class="founding-counter">
+      <div class="counter-bar-bg">
+        <div class="counter-bar-fill" id="counterBar" style="width:0%"></div>
+      </div>
+      <div class="counter-info">
+        <div class="counter-left">
+          <div class="counter-num" id="counterNum">0</div>
+          <div class="counter-sublabel">Plätze belegt</div>
+        </div>
+        <div class="counter-right">
+          <div class="counter-total">500</div>
+          <div class="counter-sublabel">Gründerplätze gesamt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="founding-benefits">
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">♾️</span>
+        <span class="founding-benefit-text">Kostenlos — für immer, ohne Ablaufdatum</span>
+      </div>
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">⭐</span>
+        <span class="founding-benefit-text">Founding Family Badge sichtbar in deiner App</span>
+      </div>
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">🗣️</span>
+        <span class="founding-benefit-text">Direkter Einfluss auf neue Features</span>
+      </div>
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">🔒</span>
+        <span class="founding-benefit-text">Daten bleiben in der EU — keine Werbung, nie</span>
+      </div>
+    </div>
+
+    <a href="registrierung.html" class="btn-gold">
+      <span>Ich will Founding Family sein</span>
+      <span>→</span>
+    </a>
+    <p class="founding-after">Ab Familie 501: €3 / Monat</p>
+  </div>
+</section>
+
 <!-- SIGNUP -->
 <section class="signup" id="signup">
   <div class="signup-inner">
-    <div class="section-label" style="text-align:center;">Jetzt starten</div>
-    <h2 class="section-title" style="text-align:center;">Kein Warten mehr.<br/>Direkt loslegen.</h2>
-    <p class="section-sub" style="text-align:center; margin: 0 auto;">14 Tage kostenlos — für dich und dein Kind. Zahlung erst nach dem Test.</p>
+    <div class="section-label" style="text-align:center;">Noch Fragen?</div>
+    <h2 class="section-title" style="text-align:center;">Einfach loslegen.</h2>
+    <p class="section-sub" style="text-align:center; margin: 0 auto;">Registrierung dauert 2 Minuten. Kein Bankkonto nötig. Jederzeit löschbar.</p>
     <div style="text-align:center; margin-top: 2.5rem;">
-      <a href="registrierung.html" class="btn-primary" style="font-size: 17px; padding: 18px 40px; display: inline-flex; gap: 10px;">
-        <span>Kostenlos registrieren</span>
+      <a href="registrierung.html" class="btn-primary" style="font-size: 17px; padding: 18px 40px; display: inline-flex; gap: 10px; margin: 0 auto;">
+        <span>Founding Family werden</span>
         <span>→</span>
       </a>
-      <p class="form-disclaimer" style="margin-top: 16px;">Zahlung erst nach 14 Tagen. Keine versteckten Kosten. DSGVO-konform.</p>
+      <p class="form-disclaimer" style="margin-top: 16px;">DSGVO-konform · Keine Kreditkarte nötig · Jederzeit kündbar</p>
     </div>
   </div>
 </section>
@@ -1045,7 +1241,7 @@ footer {
       <li><a href="impressum.html">Impressum</a></li>
       <li><a href="mailto:hallo@clavy.eu">Kontakt</a></li>
     </ul>
-    <div class="footer-copy">© 2025 CLAVY UG (i.Gr.) · clavy.eu</div>
+    <div class="footer-copy">© 2026 CLAVY UG (i.Gr.) · clavy.eu</div>
   </div>
 </footer>
 
