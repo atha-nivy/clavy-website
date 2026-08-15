@@ -1127,7 +1127,7 @@ footer {
     <div class="founding-badge-preview">⭐ Founding Family Badge</div>
     <h2 class="founding-title">Die ersten 500 Familien<br/>gestalten CLAVY mit.</h2>
     <p class="founding-sub">
-      Als Founding Family bekommst du CLAVY für immer kostenlos — und deinen persönlichen Badge in der App. Kein Ablaufdatum. Kein Kleingedrucktes.
+      Du bist nicht Beta-Tester. Du bist Mitgründer. Die ersten 500 Familien helfen dabei, CLAVY zu dem zu machen, was Familien wirklich brauchen — und behalten ihren Status dauerhaft.
     </p>
 
     <div class="founding-counter">
@@ -1148,16 +1148,28 @@ footer {
 
     <div class="founding-benefits">
       <div class="founding-benefit">
-        <span class="founding-benefit-icon">♾️</span>
-        <span class="founding-benefit-text">Kostenlos — für immer, ohne Ablaufdatum</span>
+        <span class="founding-benefit-icon">🆓</span>
+        <span class="founding-benefit-text">Alle aktuellen Features kostenlos — solange CLAVY eine Lernplattform ist</span>
+      </div>
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">💎</span>
+        <span class="founding-benefit-text">Dauerhaft bester Preis — VIP-Konditionen für alle zukünftigen Funktionen</span>
       </div>
       <div class="founding-benefit">
         <span class="founding-benefit-icon">⭐</span>
-        <span class="founding-benefit-text">Founding Family Badge sichtbar in deiner App</span>
+        <span class="founding-benefit-text">Exklusives Founding-Family-Badge in der App</span>
       </div>
       <div class="founding-benefit">
-        <span class="founding-benefit-icon">🗣️</span>
-        <span class="founding-benefit-text">Direkter Einfluss auf neue Features</span>
+        <span class="founding-benefit-icon">🔭</span>
+        <span class="founding-benefit-text">Early Access auf neue Features &amp; Roadmap-Previews</span>
+      </div>
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">💬</span>
+        <span class="founding-benefit-text">Gründerupdates von Atha — echte Einblicke, kein Marketing</span>
+      </div>
+      <div class="founding-benefit">
+        <span class="founding-benefit-icon">🔬</span>
+        <span class="founding-benefit-text">Einladungen zu Interviews &amp; Produkttests — dein Feedback formt CLAVY</span>
       </div>
       <div class="founding-benefit">
         <span class="founding-benefit-icon">🔒</span>
@@ -1166,10 +1178,10 @@ footer {
     </div>
 
     <a href="registrierung.html" class="btn-gold">
-      <span>Ich will Founding Family sein</span>
+      <span>Jetzt Founding Family werden</span>
       <span>→</span>
     </a>
-    <p class="founding-after">Ab Familie 501: €3 / Monat</p>
+    <p class="founding-after">Ab Familie 501: €3 / Monat · Kein Vertrag · Jederzeit kündbar</p>
   </div>
 </section>
 
@@ -1197,24 +1209,24 @@ footer {
     <p class="section-sub">CLAVY ist so gebaut, dass Eltern immer den Überblick behalten — ohne Kontrollzwang.</p>
     <div class="parents-grid">
       <div class="parent-card dark">
-        <div class="parent-card-icon">🛡️</div>
-        <div class="parent-card-title">Volle Kontrolle</div>
-        <p class="parent-card-desc">Ausgabenlimits setzen, Zahlungen genehmigen, Transaktionen in Echtzeit einsehen.</p>
+        <div class="parent-card-icon">✅</div>
+        <div class="parent-card-title">Aufgaben genehmigen</div>
+        <p class="parent-card-desc">Wenn dein Kind eine Aufgabe erledigt, gibst du die Bestätigung — du behältst immer das letzte Wort.</p>
       </div>
       <div class="parent-card">
         <div class="parent-card-icon">📊</div>
         <div class="parent-card-title">Lernfortschritt sehen</div>
-        <p class="parent-card-desc">Welche Lektionen hat mein Kind abgeschlossen? CLAVY zeigt den Fortschritt in Echtzeit.</p>
+        <p class="parent-card-desc">Welche Missionen hat mein Kind abgeschlossen? XP, Level, Streak — alles auf einen Blick.</p>
       </div>
       <div class="parent-card">
-        <div class="parent-card-icon">💸</div>
-        <div class="parent-card-title">Taschengeld automatisieren</div>
-        <p class="parent-card-desc">Wöchentliches oder monatliches Taschengeld automatisch überweisen — pünktlich, ohne Ärger.</p>
+        <div class="parent-card-icon">🎯</div>
+        <div class="parent-card-title">Sparziele begleiten</div>
+        <p class="parent-card-desc">Kinder setzen Sparziele mit Foto und Datum. Du siehst den Fortschritt und kannst Mut machen.</p>
       </div>
       <div class="parent-card dark">
         <div class="parent-card-icon">🔒</div>
         <div class="parent-card-title">Keine Werbung. Nie.</div>
-        <p class="parent-card-desc">CLAVY zeigt Ihrem Kind keine Werbung. Keine Tracking-Cookies. Keine Datenweitergabe. Punkt.</p>
+        <p class="parent-card-desc">CLAVY zeigt deinem Kind keine Werbung. Keine Tracking-Cookies. Keine Datenweitergabe. Punkt.</p>
       </div>
     </div>
   </div>
@@ -1265,8 +1277,9 @@ document.querySelectorAll('.feature-card, .how-step, .parent-card').forEach(el =
 
 // Founding Families Counter (Supabase RPC)
 (async function loadCounter() {
-  const SUPABASE_URL = 'https://wqhjgmexqiyhrlfwyeqm.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaGpnbWV4cWl5aHJsZnd5ZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxNzE4MDMsImV4cCI6MjA2MTc0NzgwM30.bT6-E4GCwDfM5yb1wbIHvMHY2O1l_JlMsj2wFpjAM8k';
+  // STAGING — vor Production-Deploy auf wqhjgmexqiyhrlfwyeqm wechseln
+  const SUPABASE_URL = 'https://qehrpbhlsjddcysmmmkw.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlaHJwYmhsc2pkZGN5c21tbWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxNzE4MDMsImV4cCI6MjA2MTc0NzgwM30.bWTMhQEYRjKcU42k2j85FJ1q9GBBEIdp3BHPD4hwJ0c';
   const FOUNDING_LIMIT = 500;
 
   try {

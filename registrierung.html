@@ -6,6 +6,7 @@
 <title>CLAVY — Als Founding Family registrieren</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -163,6 +164,49 @@ input.error, select.error { border-color: var(--red); }
 footer { text-align: center; padding: 2rem; font-size: 12px; color: #9CA3AF; }
 footer a { color: var(--blue); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
+
+/* WAITLIST GATE (sichtbar wenn > 500 Familien) */
+#waitlistGate { display: none; }
+.waitlist-card {
+  background: white; border-radius: 20px; padding: 2.5rem 2rem;
+  box-shadow: 0 4px 24px rgba(15,42,95,0.10); text-align: center; max-width: 480px; margin: 0 auto;
+}
+.waitlist-badge {
+  display: inline-block; background: #FEF3C7; color: #92400E;
+  font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px;
+  margin-bottom: 1.5rem; border: 1px solid #FCD34D;
+}
+.waitlist-title {
+  font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 800;
+  color: var(--navy); line-height: 1.2; margin-bottom: 1rem;
+}
+.waitlist-sub {
+  font-size: 15px; color: #4B5563; line-height: 1.6; margin-bottom: 1.5rem;
+}
+.waitlist-price-box {
+  background: var(--light); border-radius: 12px; padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem; text-align: left;
+}
+.waitlist-price-label { font-size: 12px; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.waitlist-price { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 800; color: var(--navy); }
+.waitlist-price-note { font-size: 13px; color: #6B7280; margin-top: 4px; }
+.waitlist-form { display: flex; flex-direction: column; gap: 12px; }
+.waitlist-input {
+  width: 100%; padding: 14px 16px; border: 1.5px solid var(--mid); border-radius: 12px;
+  font-size: 15px; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s;
+}
+.waitlist-input:focus { border-color: var(--navy); }
+.waitlist-btn {
+  width: 100%; padding: 16px; background: var(--navy); color: white;
+  border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
+  font-family: 'Poppins', sans-serif; cursor: pointer; transition: opacity 0.2s;
+}
+.waitlist-btn:hover { opacity: 0.9; }
+.waitlist-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.waitlist-success {
+  background: #ECFDF5; border: 1px solid #6EE7B7; border-radius: 12px;
+  padding: 1rem; color: #065F46; font-size: 14px; font-weight: 600; display: none;
+}
 </style>
 </head>
 <body>
@@ -182,6 +226,33 @@ footer a:hover { text-decoration: underline; }
 </nav>
 
 <main>
+
+  <!-- WAITLIST GATE: sichtbar wenn Founding Families voll (>= 500) -->
+  <div id="waitlistGate">
+    <div class="waitlist-card">
+      <div class="waitlist-badge">⭐ 500 / 500 Founding-Family-Plätze belegt</div>
+      <h1 class="waitlist-title">Founding Families sind voll.<br/>Wir öffnen bald für alle.</h1>
+      <p class="waitlist-sub">
+        Die ersten 500 Familien haben ihren Platz gesichert. Trag dich ein — wir melden uns sobald CLAVY für alle öffnet.
+      </p>
+      <div class="waitlist-price-box">
+        <div class="waitlist-price-label">Preis ab Öffnung</div>
+        <div class="waitlist-price">€3 <span style="font-size:16px;font-weight:500;color:#6B7280;">/ Monat</span></div>
+        <div class="waitlist-price-note">Kein Vertrag · Jederzeit kündbar · Alle Features inklusive</div>
+      </div>
+      <div class="waitlist-form">
+        <input type="email" id="waitlistEmail" class="waitlist-input" placeholder="deine@email.de" autocomplete="email" />
+        <button class="waitlist-btn" id="waitlistBtn" onclick="submitWaitlist()">Auf Warteliste eintragen →</button>
+        <div class="waitlist-success" id="waitlistSuccess">
+          ✓ Du bist auf der Liste! Wir melden uns wenn es losgeht.
+        </div>
+        <p style="font-size:12px;color:#9CA3AF;text-align:center;">Kein Spam. Nur eine E-Mail wenn wir öffnen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDING FLOW: sichtbar solange < 500 Familien -->
+  <div id="foundingFlow">
 
   <!-- PROGRESS -->
   <div class="progress-bar" id="progressBar">
@@ -304,18 +375,23 @@ footer a:hover { text-decoration: underline; }
       <div class="success-icon">🎉</div>
       <h2 class="success-title">Willkommen bei CLAVY!</h2>
       <p class="success-sub">
-        Du bist jetzt Founding Family. Dein Platz ist gesichert.
+        Du bist jetzt Teil der Founding Family — einer der ersten Familien, die CLAVY mitgestalten.
         Wir haben dir eine Bestätigungs-E-Mail geschickt — bitte einmal bestätigen.
       </p>
 
       <div class="success-box">
-        <div class="success-box-title">Deine Founding-Family-Vorteile</div>
+        <div class="success-box-title">⭐ Dein dauerhafter Founding-Status</div>
         <ul>
-          <li>Alle aktuellen Lernmissionen kostenlos</li>
-          <li>Aufgaben, Sterne &amp; Sparziele inklusive</li>
-          <li>VIP-Konditionen bei neuen Funktionen</li>
+          <li>Alle aktuellen Features kostenlos (Lernmissionen, Aufgaben, Sparziele)</li>
+          <li>Dauerhaft bester Preis bei neuen Funktionen (AP7+)</li>
+          <li>Early Access auf neue Features &amp; Roadmap-Previews</li>
+          <li>Gründerupdates direkt von Atha — nicht Marketing, sondern echte Einblicke</li>
+          <li>Einladungen zu Interviews &amp; Produkttests</li>
           <li>Exklusives Founding-Family-Badge in der App</li>
         </ul>
+        <p style="font-size:12px;color:#6B7280;margin-top:12px;margin-bottom:0;">
+          Kein Feature-Voting. Wir wollen Probleme verstehen, nicht Features sammeln — damit CLAVY wirklich hilft.
+        </p>
       </div>
 
       <p style="font-size:14px;font-weight:600;color:var(--dark);margin-bottom:1rem;">App herunterladen:</p>
@@ -339,6 +415,8 @@ footer a:hover { text-decoration: underline; }
     </div>
   </div>
 
+  </div> <!-- /foundingFlow -->
+
 </main>
 
 <footer>
@@ -353,6 +431,46 @@ footer a:hover { text-decoration: underline; }
 
 <script>
 const N8N_REGISTRATION_WEBHOOK = 'https://n8n-production-7470.up.railway.app/webhook/clavy-registration';
+
+// STAGING — vor Production-Deploy auf wqhjgmexqiyhrlfwyeqm + Production-Key wechseln
+const SUPABASE_URL = 'https://qehrpbhlsjddcysmmmkw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlaHJwYmhsc2pkZGN5c21tbWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxNzE4MDMsImV4cCI6MjA2MTc0NzgwM30.bWTMhQEYRjKcU42k2j85FJ1q9GBBEIdp3BHPD4hwJ0c';
+
+// Feature-Gate: Founding Flow vs. Waitlist
+(async function checkFoundingLimit() {
+  try {
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data, error } = await db.rpc('get_founding_families_count');
+    const count = (!error && data !== null) ? parseInt(data) : 0;
+    if (count >= 500) {
+      document.getElementById('foundingFlow').style.display = 'none';
+      document.getElementById('waitlistGate').style.display = 'block';
+    }
+  } catch (_) {
+    // Im Fehlerfall: Founding Flow zeigen (sicherer Default)
+  }
+})();
+
+async function submitWaitlist() {
+  const email = document.getElementById('waitlistEmail').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('waitlistEmail').style.borderColor = '#DC2626';
+    return;
+  }
+  const btn = document.getElementById('waitlistBtn');
+  btn.disabled = true;
+  btn.textContent = 'Wird eingetragen…';
+  try {
+    await fetch(N8N_REGISTRATION_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source: 'waitlist', isFoundingFamily: false }),
+    });
+  } catch (_) { /* N8N nicht erreichbar — trotzdem Success zeigen */ }
+  document.getElementById('waitlistBtn').style.display = 'none';
+  document.getElementById('waitlistSuccess').style.display = 'block';
+}
 
 let currentStep = 1;
 
