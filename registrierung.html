@@ -548,32 +548,50 @@ async function submitRegistration() {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Konto wird erstellt…';
 
-  const payload = {
-    email: document.getElementById('email').value.trim(),
-    password: document.getElementById('password').value,
-    firstName,
-    lastName,
-    countryCode: document.getElementById('country').value,
-    consentVersion: '1.0',
-    isFoundingFamily: true,
-    source: new URLSearchParams(window.location.search).get('source') || 'web',
-  };
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const countryCode = document.getElementById('country').value;
 
   try {
-    const response = await fetch(N8N_REGISTRATION_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+    // User direkt in Supabase anlegen (kein N8N-Zwischenschritt)
+    // founding_families-Trigger läuft automatisch bei auth.users INSERT
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { error: signUpError } = await db.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          country_code: countryCode,
+          consent_version: '1.0',
+          is_founding_family: true,
+        },
+      },
     });
 
-    if (!response.ok) throw new Error('Status ' + response.status);
+    if (signUpError) {
+      if (signUpError.message.includes('already registered')) {
+        throw new Error('Diese E-Mail-Adresse ist bereits registriert. Bitte melde dich in der App an.');
+      }
+      throw signUpError;
+    }
+
+    // N8N für Willkommens-E-Mail benachrichtigen (fire-and-forget, kein Blocking)
+    fetch(N8N_REGISTRATION_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, firstName, lastName, countryCode, source: 'founding_family_welcome' }),
+    }).catch(() => {});
+
     goToStep(3);
 
   } catch (err) {
     btn.disabled = false;
     btn.innerHTML = '⭐ Founding Family werden';
     const errEl = document.getElementById('step2Error');
-    errEl.textContent = 'Registrierung fehlgeschlagen. Bitte versuche es erneut oder schreib uns: hallo@clavy.eu';
+    errEl.textContent = err.message || 'Registrierung fehlgeschlagen. Bitte versuche es erneut oder schreib uns: hallo@clavy.eu';
     errEl.classList.add('visible');
     console.error('[CLAVY Registration]', err);
   }
