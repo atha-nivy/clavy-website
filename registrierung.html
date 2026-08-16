@@ -432,9 +432,14 @@ footer a:hover { text-decoration: underline; }
 <script>
 const N8N_REGISTRATION_WEBHOOK = 'https://n8n-production-7470.up.railway.app/webhook/clavy-registration';
 
-// STAGING — vor Production-Deploy auf wqhjgmexqiyhrlfwyeqm + Production-Key wechseln
-const SUPABASE_URL = 'https://qehrpbhlsjddcysmmmkw.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlaHJwYmhsc2pkZGN5c21tbWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxNzE4MDMsImV4cCI6MjA2MTc0NzgwM30.bWTMhQEYRjKcU42k2j85FJ1q9GBBEIdp3BHPD4hwJ0c';
+// Automatische Umgebungs-Erkennung: clavy.eu → Production, alles andere (Vercel-Previews, localhost) → Staging
+const IS_PRODUCTION = window.location.hostname === 'clavy.eu' || window.location.hostname === 'www.clavy.eu';
+const SUPABASE_URL = IS_PRODUCTION
+  ? 'https://wqhjgmexqiyhrlfwyeqm.supabase.co'
+  : 'https://qehrpbhlsjddcysmmmkw.supabase.co';
+const SUPABASE_ANON_KEY = IS_PRODUCTION
+  ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaGpnbWV4cWl5aHJsZnd5ZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjIxNjksImV4cCI6MjA5MzEzODE2OX0.ZE7uWYkfzoFevDkks9A-qeM6Uqu8odhojHxpIzqrSYU'
+  : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlaHJwYmhsc2pkZGN5c21tbWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1ODAyMzMsImV4cCI6MjA5NTE1NjIzM30.v2rKymJMXILjt72d2UsL7AbiYw8mMWm1alCBPZQ1YQs';
 
 // Feature-Gate: Founding Flow vs. Waitlist
 (async function checkFoundingLimit() {
