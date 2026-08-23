@@ -76,7 +76,7 @@ main { padding: 6rem 1.5rem 4rem; max-width: 560px; margin: 0 auto; }
 .form-group { margin-bottom: 1.25rem; }
 label { display: block; font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
 label .required { color: var(--red); margin-left: 2px; }
-input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], select {
   width: 100%; padding: 12px 16px; border: 1.5px solid var(--mid);
   border-radius: 10px; font-size: 15px; font-family: 'Inter', sans-serif;
   color: var(--dark); background: var(--white); transition: border-color 0.2s;
@@ -347,6 +347,12 @@ footer a:hover { text-decoration: underline; }
       </div>
 
       <div class="form-group">
+        <label for="birthdate">Geburtsdatum<span class="required">*</span></label>
+        <input type="date" id="birthdate" autocomplete="bday">
+        <div class="field-error" id="birthdateError">Clavy-Konten können nur von Erziehungsberechtigten ab 18 Jahren erstellt werden.</div>
+      </div>
+
+      <div class="form-group">
         <label for="country">Land<span class="required">*</span></label>
         <select id="country" autocomplete="country">
           <option value="DE" selected>🇩🇪 Deutschland</option>
@@ -440,6 +446,21 @@ const SUPABASE_URL = IS_PRODUCTION
 const SUPABASE_ANON_KEY = IS_PRODUCTION
   ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaGpnbWV4cWl5aHJsZnd5ZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjIxNjksImV4cCI6MjA5MzEzODE2OX0.ZE7uWYkfzoFevDkks9A-qeM6Uqu8odhojHxpIzqrSYU'
   : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlaHJwYmhsc2pkZGN5c21tbWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1ODAyMzMsImV4cCI6MjA5NTE1NjIzM30.v2rKymJMXILjt72d2UsL7AbiYw8mMWm1alCBPZQ1YQs';
+
+// Elternteil muss mindestens 18 Jahre alt sein — gleiche Regel wie RegisterScreen.tsx in der App
+const MIN_AGE_YEARS = 18;
+function maxBirthdateFor18Plus() {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - MIN_AGE_YEARS);
+  return d;
+}
+function toIsoDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+document.getElementById('birthdate').max = toIsoDate(maxBirthdateFor18Plus());
 
 // Feature-Gate: Founding Flow vs. Waitlist
 (async function checkFoundingLimit() {
@@ -542,6 +563,15 @@ async function submitRegistration() {
   if (!lastName) { setFieldError('lastName', 'lastNameError', true); valid = false; }
   else setFieldError('lastName', 'lastNameError', false);
 
+  const birthdateStr = document.getElementById('birthdate').value;
+  let birthdateOk = !!birthdateStr;
+  if (birthdateOk) {
+    const birthdateDate = new Date(birthdateStr + 'T00:00:00');
+    if (birthdateDate > maxBirthdateFor18Plus()) birthdateOk = false;
+  }
+  setFieldError('birthdate', 'birthdateError', !birthdateOk);
+  if (!birthdateOk) valid = false;
+
   if (!valid) {
     document.getElementById('step2Error').textContent = 'Bitte fülle alle Pflichtfelder aus.';
     document.getElementById('step2Error').classList.add('visible');
@@ -569,6 +599,7 @@ async function submitRegistration() {
         data: {
           first_name: firstName,
           last_name: lastName,
+          birthdate: birthdateStr,
           country_code: countryCode,
           consent_version: '1.0',
           is_founding_family: true,
@@ -587,7 +618,7 @@ async function submitRegistration() {
     fetch(N8N_REGISTRATION_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, firstName, lastName, countryCode, source: 'founding_family_welcome' }),
+      body: JSON.stringify({ email, firstName, lastName, birthdate: birthdateStr, countryCode, source: 'founding_family_welcome' }),
     }).catch(() => {});
 
     goToStep(3);
