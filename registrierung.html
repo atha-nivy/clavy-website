@@ -440,6 +440,18 @@ const N8N_REGISTRATION_WEBHOOK = 'https://n8n-production-7470.up.railway.app/web
 
 // Automatische Umgebungs-Erkennung: clavy.eu → Production, alles andere (Vercel-Previews, localhost) → Staging
 const IS_PRODUCTION = window.location.hostname === 'clavy.eu' || window.location.hostname === 'www.clavy.eu';
+
+// Ein einziger Aufruf nach der Registrierung — entscheidet selbst (is_founding_family-Check),
+// ob Willkommens-Mail oder Stripe-Checkout richtig ist. Ersetzt die vorherigen zwei getrennten
+// Routen (WF-16 + WF-17, zusammengelegt 02.09.2026 — sie liefen nie gleichzeitig für denselben
+// Nutzer). Ersetzt außerdem N8N_REGISTRATION_WEBHOOK für die Willkommens-Mail (der alte Aufruf
+// schickte nie ein password-Feld mit, WF-10 verlangte es aber zwingend → die Mail kam seit der
+// Umstellung auf direktes signUp() nie an).
+// ⚠️ Production-Route existiert im N8N noch NICHT (Stand 02.09.2026) — nur auf Staging gebaut
+// + getestet. Vor echtem Production-Einsatz erst auf Production-N8N deployen (Staging-First!).
+const N8N_POST_REGISTRATION_WEBHOOK = IS_PRODUCTION
+  ? 'https://n8n-production-7470.up.railway.app/webhook/clavy-post-registration'
+  : 'https://n8n-production-97d4.up.railway.app/webhook/clavy-post-registration-staging';
 const SUPABASE_URL = IS_PRODUCTION
   ? 'https://wqhjgmexqiyhrlfwyeqm.supabase.co'
   : 'https://qehrpbhlsjddcysmmmkw.supabase.co';
@@ -462,21 +474,12 @@ function toIsoDate(d) {
 }
 document.getElementById('birthdate').max = toIsoDate(maxBirthdateFor18Plus());
 
-// Feature-Gate: Founding Flow vs. Waitlist
-(async function checkFoundingLimit() {
-  try {
-    const { createClient } = supabase;
-    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const { data, error } = await db.rpc('get_founding_families_count');
-    const count = (!error && data !== null) ? parseInt(data) : 0;
-    if (count >= 500) {
-      document.getElementById('foundingFlow').style.display = 'none';
-      document.getElementById('waitlistGate').style.display = 'block';
-    }
-  } catch (_) {
-    // Im Fehlerfall: Founding Flow zeigen (sicherer Default)
-  }
-})();
+// Seit 02.09.2026: kein Warteliste-Gate mehr ab 500 — das Formular bleibt immer offen.
+// Ob jemand Founding Family wird oder zahlungspflichtig registriert, entscheidet sich erst
+// NACH der Registrierung (is_founding_family-Check, siehe submitRegistration()) — nicht mehr vorher
+// durch Verstecken des Formulars. Die alte Warteliste (submitWaitlist(), #waitlistGate) bleibt
+// als totes Markup stehen, wird aber nirgends mehr automatisch angezeigt — kann bei Gelegenheit
+// aufgeräumt werden, ist aber ungefährlich so.
 
 async function submitWaitlist() {
   const email = document.getElementById('waitlistEmail').value.trim();
@@ -592,7 +595,7 @@ async function submitRegistration() {
     // founding_families-Trigger läuft automatisch bei auth.users INSERT
     const { createClient } = supabase;
     const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const { error: signUpError } = await db.auth.signUp({
+    const { data: signUpData, error: signUpError } = await db.auth.signUp({
       email,
       password,
       options: {
@@ -614,12 +617,25 @@ async function submitRegistration() {
       throw signUpError;
     }
 
-    // N8N für Willkommens-E-Mail benachrichtigen (fire-and-forget, kein Blocking)
-    fetch(N8N_REGISTRATION_WEBHOOK, {
+    // Ein Aufruf, entscheidet selbst: Willkommens-Mail (Founding Family) oder
+    // Stripe-Checkout-Weiterleitung (#501+). Kein eigener Check hier auf der Website mehr nötig.
+    const postRegResp = await fetch(N8N_POST_REGISTRATION_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, firstName, lastName, birthdate: birthdateStr, countryCode, source: 'founding_family_welcome' }),
-    }).catch(() => {});
+      body: JSON.stringify({ userId: signUpData.user.id, email, firstName }),
+    });
+    const postRegData = await postRegResp.json().catch(() => ({}));
+
+    if (postRegResp.ok && postRegData.checkoutUrl) {
+      window.location.href = postRegData.checkoutUrl;
+      return;
+    }
+
+    if (!postRegResp.ok) {
+      // Account existiert trotzdem (Login geht) — nur die Weiterleitung/Mail ist fehlgeschlagen.
+      // Nutzer informieren statt stillschweigend falschen Erfolg zeigen.
+      throw new Error('Registrierung erfolgreich, aber ein Folgeschritt ist fehlgeschlagen. Bitte schreib uns: hallo@clavy.eu');
+    }
 
     goToStep(3);
 
